@@ -12,53 +12,32 @@
 #include "1923VK014.h"
 
 class Gdb {
-public:
+ public:
   Gdb() = default;
-  static void init();
-  static void start();
-  static void print(unsigned char ch);
-  static void print(char ch) {
-    print((unsigned char) (ch));
-  }
+  static void begin();
+
   static void print(const char *str) {
-    while (*str != '\0')
-      print(*str++);
+    fprintf(stderr, str);
   }
 
   static void print(int c) {
-    char buffer[sizeof("-9223372036854775807-1")] = { };
-    sprintf(buffer, "%d", c);
-    print(buffer);
+    fprintf(stderr, "%d", c);
   }
 
   static void println() {
-    print('\r');
-    print('\n');
-  }
-
-  static void println(unsigned char ch) {
-    print(ch);
-    println();
-  }
-
-  static void println(char ch) {
-    println((unsigned char) (ch));
+    fprintf(stderr, "\r\n");
   }
 
   static void println(const char *str) {
-    while (*str != '\0')
-      print(*str++);
+    print(str);
     println();
   }
 
   static void println(int c) {
-    char buffer[sizeof("-9223372036854775807-1")] = { };
-    sprintf(buffer, "%d", c);
-    print(buffer);
+    print(c);
     println();
   }
 
 };
-
 
 #endif /* GDB_GDB_H_ */

@@ -1,9 +1,54 @@
 /*
  * GDB stub.
+ * 
  * Migarte form linux to rt-thread by Wzyy2
  * Original edition : KGDB stub
+ * 
+ * File      : gdb_stub.c
+ * This file is part of RT-Thread RTOS
+ * COPYRIGHT (C) 2006, RT-Thread Develop Team
+ *
+ * The license and distribution terms for this file may be
+ * found in the file LICENSE in this distribution or at
+ * http://www.rt-thread.org/license/LICENSE
+ *
+ * Change Logs:
+ * Date           Author       Notes
+ * 2014-07-04     Wzyy2      first version
+ *
+ * This file incorporates work covered by the following copyright and
+ * permission notice: 
+ *
+ * KGDB stub.
+ *
+ * Maintainer: Jason Wessel <jason.wessel@windriver.com>
+ *
+ * Copyright (C) 2000-2001 VERITAS Software Corporation.
+ * Copyright (C) 2002-2004 Timesys Corporation
+ * Copyright (C) 2003-2004 Amit S. Kale <amitkale@linsyssoft.com>
+ * Copyright (C) 2004 Pavel Machek <pavel@suse.cz>
+ * Copyright (C) 2004-2006 Tom Rini <trini@kernel.crashing.org>
+ * Copyright (C) 2004-2006 LinSysSoft Technologies Pvt. Ltd.
+ * Copyright (C) 2005-2008 Wind River Systems, Inc.
+ * Copyright (C) 2007 MontaVista Software, Inc.
+ * Copyright (C) 2008 Red Hat, Inc., Ingo Molnar <mingo@redhat.com>
+ *
+ * Contributors at various stages not listed above:
+ *  Jason Wessel ( jason.wessel@windriver.com )
+ *  George Anzinger <george@mvista.com>
+ *  Anurekh Saxena (anurekh.saxena@timesys.com)
+ *  Lake Stevens Instrument Division (Glenn Engel)
+ *  Jim Kingdon, Cygnus Support.
+ *
+ * Original KGDB stub: David Grothe <dave@gcom.com>,
+ * Tigran Aivazian <tigran@sco.com>
+ *
+ * This file is licensed under the terms of the GNU General Public License
+ * version 2. This program is licensed "as is" without any warranty of any
+ * kind, whether express or implied.
  */
-
+//#include <rtthread.h>
+//#include <rthw.h>
 #include <string.h>
 #include "gdb_stub.h"
 
@@ -44,7 +89,7 @@ static const char hexchars[] = "0123456789abcdef";
 //to call that there has been an error
 void *volatile gdb_mem_fault_handler = (void*) 0;
 static long probe_kernel_write(void *dst, void *src, size_t size) {
-  size_t i = 0;
+  int i = 0;
   char *dst_ptr = (char*) dst;
   char *src_ptr = (char*) src;
 
@@ -258,21 +303,21 @@ static void put_packet(char *buffer) {
 
 /* scan for the sequence $<data>#<checksum> */
 static void get_packet(char *buffer) {
-  volatile unsigned char checksum;
-  volatile unsigned char xmitcsum;
-  volatile int count = 0;
-  volatile char ch = 0;
+  unsigned char checksum;
+  unsigned char xmitcsum;
+  int count;
+  char ch;
 
   do {
     /*
      * Spin and wait around for the start character, ignore all
      * other characters:
      */
-    ch = gdb_io_ops.read_char();
-    while (ch != '$') {
-      ch = gdb_io_ops.read_char();
-    }
 
+    gdb_led(1);
+    while (((gdb_io_ops.read_char())) != '$')
+      continue;
+    gdb_led(0);
     gdb_connected = 1;
     checksum = 0;
     xmitcsum = -1;
@@ -296,15 +341,12 @@ static void get_packet(char *buffer) {
       xmitcsum = hex(gdb_io_ops.read_char()) << 4;
       xmitcsum += hex(gdb_io_ops.read_char());
 
-      if (checksum != xmitcsum) {
+      if (checksum != xmitcsum)
         /* failed checksum */
-        gdb_led(0);
         gdb_io_ops.write_char('-');
-      } else {
+      else
         /* successful transfer */
-        gdb_led(1);
         gdb_io_ops.write_char('+');
-      }
       if (gdb_io_ops.flush)
         gdb_io_ops.flush();
     }
@@ -338,7 +380,6 @@ static int gdb_validate_break_address(unsigned long addr) {
   char tmp_variable[BREAK_INSTR_SIZE];
   int err;
   int qw;
-  (void) qw;
   /* Validate setting the breakpoint and then removing it.  In the
    * remove fails, the kernel needs to emit a bad message because we
    * are deep trouble not being able to put things back the way we
@@ -350,6 +391,7 @@ static int gdb_validate_break_address(unsigned long addr) {
   err = gdb_arch_remove_breakpoint(addr, tmp_variable);
   if (err)
     qw = 1;
+  //rt_kprintf("GDB: Critical breakpoint error,memory destroyed at: %08x \n", addr);
   return err;
 }
 
@@ -358,7 +400,6 @@ static int gdb_validate_break_address(unsigned long addr) {
  * breakpoint:
  */
 static void gdb_flush_swbreak_addr(unsigned long addr) {
-  (void) addr;
 //     if (!CACHE_FLUSH_IS_SAFE)
 //         return;
 
@@ -477,8 +518,6 @@ static int remove_all_break() {
   int i;
   int qw;
 
-  (void) qw;
-
   /* Clear memory breakpoints. */
   for (i = 0; i < GDB_MAX_BREAKPOINTS; i++) {
     if (gdb_break[i].state != BP_ACTIVE)
@@ -487,6 +526,8 @@ static int remove_all_break() {
     error = gdb_arch_remove_breakpoint(addr, (char*) gdb_break[i].saved_instr);
     if (error)
       qw = 1;
+    //rt_kprintf("GDB: breakpoint remove failed: %lx\n",
+    //      addr);
     setundefined: gdb_break[i].state = BP_UNDEFINED;
   }
 #endif
@@ -499,41 +540,60 @@ static int remove_all_break() {
   return 0;
 }
 
-static char gdbmsgbuf[BUFMAX + 1];
 static void gdb_msg_write(const char *s, int len) {
-  char *bufptr;
-  int wcount;
-  int i;
+    static char gdbmsgbuf[128 + 1];
+    char *bufptr;
+    int wcount;
+    int i;
 
-  /* 'O'utput */
-  gdbmsgbuf[0] = 'O';
+    /* 'O'utput */
+    gdbmsgbuf[0] = 'O';
 
-  /* Fill and send buffers... */
-  while (len > 0) {
-    bufptr = gdbmsgbuf + 1;
+    /* Fill and send buffers... */
+    while (len > 0) {
+        bufptr = gdbmsgbuf + 1;
 
-    /* Calculate how many this time */
-    if ((len << 1) > (BUFMAX - 2))
-      wcount = (BUFMAX - 2) >> 1;
-    else
-      wcount = len;
+        /* Calculate how many this time */
+        if ((len << 1) > (BUFMAX - 2))
+            wcount = (BUFMAX - 2) >> 1;
+        else
+            wcount = len;
 
-    /* Pack in hex chars */
-    for (i = 0; i < wcount; i++) {
-      *(bufptr++) = tohex((s[i] >> 4) & 0xf);
-      *(bufptr++) = tohex(s[i] & 0xf);
+        /* Pack in hex chars */
+        for (i = 0; i < wcount; i++) {
+            *(bufptr++) = tohex((s[i] >> 4) & 0xf);
+            *(bufptr++) = tohex(s[i] & 0xf);
+        }
+        *bufptr = '\0';
+
+        /* Move up */
+        s += wcount;
+        len -= wcount;
+
+        /* Write packet */
+        put_packet(gdbmsgbuf);
     }
-    *bufptr = '\0';
-
-    /* Move up */
-    s += wcount;
-    len -= wcount;
-
-    /* Write packet */
-    put_packet(gdbmsgbuf);
-  }
 }
 
+/*
+ * Return true if there is a valid gdb I/O module.  Also if no
+ * debugger is attached a message can be printed to the console about
+ * waiting for the debugger to attach.
+ *
+ * The print_wait argument is only to be true when called from inside
+ * the core gdb_handle_exception, because it will wait for the
+ * debugger to attach.
+ */
+// static int gdb_io_ready(int print_wait)
+// {
+//     if (!gdb_dev)
+//         return 0;
+//     if (gdb_connected)
+//         return 1;
+//     if (print_wait)
+//         rt_kprintf("GDB: Waiting for remote debugger\n");
+//     return 1;
+// }
 /* Handle the '?' status packets */
 static void gdb_cmd_status(struct gdb_state *gs) {
   /*
@@ -552,7 +612,6 @@ static void gdb_cmd_status(struct gdb_state *gs) {
 
 /* Handle the 'm' memory read bytes */
 static void gdb_cmd_memread(struct gdb_state *gs) {
-  (void) gs;
   char *ptr = &remcom_in_buffer[1];
   unsigned long length;
   unsigned long addr;
@@ -575,7 +634,6 @@ static void gdb_cmd_memread(struct gdb_state *gs) {
 
 /* Handle the 'M' memory write bytes */
 static void gdb_cmd_memwrite(struct gdb_state *gs) {
-  (void) gs;
   int err = write_mem_msg(0);
 
   if (err)
@@ -586,7 +644,6 @@ static void gdb_cmd_memwrite(struct gdb_state *gs) {
 
 /* Handle the 'X' memory binary write bytes */
 static void gdb_cmd_binwrite(struct gdb_state *gs) {
-  (void) gs;
   int err = write_mem_msg(1);
 
   if (err)
@@ -597,13 +654,11 @@ static void gdb_cmd_binwrite(struct gdb_state *gs) {
 
 /* Handle the 'q' query packets */
 static void gdb_cmd_query(struct gdb_state *gs) {
-  (void) gs;
   /* nothing,because we have no thread support */
 }
 
 /* Handle the 'g' or 'p' get registers request */
 static void gdb_cmd_getregs(struct gdb_state *gs) {
-  (void) gs;
   char len = sizeof(long);
 
   gdb_get_register((unsigned long*) gdb_regs);
@@ -627,7 +682,6 @@ static void gdb_cmd_getregs(struct gdb_state *gs) {
 
 /* Handle the 'G' or 'P' set registers request */
 static void gdb_cmd_setregs(struct gdb_state *gs) {
-  (void) gs;
   char len = sizeof(long);
 
   /*set one registers*/
@@ -653,7 +707,6 @@ static void gdb_cmd_setregs(struct gdb_state *gs) {
 
 /* Handle the 'D' or 'k', detach or kill packets */
 static void gdb_cmd_detachkill(struct gdb_state *gs) {
-  (void) gs;
   int error;
 
   /* The detach case */
@@ -678,8 +731,6 @@ static void gdb_cmd_detachkill(struct gdb_state *gs) {
 
 /* Handle the 'z' or 'Z' breakpoint remove or set packets */
 static void gdb_cmd_break(struct gdb_state *gs) {
-  (void) gs;
-
   /*
    * Since GDB-5.3, it's been drafted that '0' is a software
    * breakpoint, '1' is a hardware breakpoint, so let's do that.
@@ -805,13 +856,10 @@ static int process_packet(char *pkt) {
     break;
   case 'C':/* Exception passing */
     tmp = gdb_cmd_exception_pass(&gs);
-    if (tmp == 0)
-      break;
     if (tmp > 0)
       process_packet(remcom_in_buffer);
-    gdb_cmd_break(&gs);
-    break;
-    // no break
+    if (tmp == 0)
+      break;
   case 'z':/* Break point remove */
   case 'Z':/* Break point set */
     gdb_cmd_break(&gs);
@@ -827,8 +875,6 @@ static int process_packet(char *pkt) {
 #if RT_GDB_HAVE_SWBP
     gdb_activate_sw_breakpoints();
 #endif
-    break;
-  default:
     break;
   }
 
@@ -883,6 +929,8 @@ int gdb_handle_exception(int signo, void *regs) {
     *ptr++ = 'T';
     *ptr++ = tohex((gs.signo >> 4) & 0xf);
     *ptr++ = tohex(gs.signo & 0xf);
+    /*ptr += strlen(strcpy(ptr, "thread:"));*/
+    /**ptr++ = ';';*/
     put_packet(remcom_out_buffer);
   }
   gs.pass_exception = 0;

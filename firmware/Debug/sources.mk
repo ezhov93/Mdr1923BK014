@@ -28,7 +28,8 @@ CPP_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 src \
-system/gdb \
-system/retarget \
+system/1923VK014 \
 system \
+system/gdb \
+system/newlib \
 

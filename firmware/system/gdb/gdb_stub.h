@@ -105,6 +105,10 @@ struct gdb_io {
 extern int gdb_connected;
 extern void *volatile gdb_mem_fault_handler;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int gdb_hex2long(char **ptr, unsigned long *long_val);
 int gdb_mem2hex(char *mem, char *buf, int count);
 int gdb_hex2mem(char *buf, char *mem, int count);
@@ -117,8 +121,13 @@ int gdb_handle_exception(int signo, void *regs);
 
 /* hal */
 extern struct gdb_io gdb_io_ops;
+//extern rt_device_t gdb_dev;
 void gdb_start();
 void gdb_set_device(const char *device_name);
 void gdb_breakpointt();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __GDB_STUB_H__ */

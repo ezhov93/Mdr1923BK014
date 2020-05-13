@@ -26,7 +26,9 @@ class Led {
 
   void on(int num) { PORTC->RXTX |= (1 << num); }
 
-  void off(int num) { PORTC->RXTX &= ~(1 << num); }
+  void off(int num) {
+    PORTC->RXTX &= ~(1 << num);
+  }
 };
 
 #endif  // LED_H

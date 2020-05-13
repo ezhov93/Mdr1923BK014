@@ -1,11 +1,26 @@
 /*
  * ARM GDB support
  * arch-specific portion of GDB stub
+ * 
+ * File      : arm_stub.c
+ * This file is part of RT-Thread RTOS
+ * COPYRIGHT (C) 2006, RT-Thread Develop Team
+ *
+ * The license and distribution terms for this file may be
+ * found in the file LICENSE in this distribution or at
+ * http://www.rt-thread.org/license/LICENSE
+ *
+ * Change Logs:
+ * Date           Author       Notes
+ * 2014-07-04     Wzyy2      first version
  */
-
+//#include <rtthread.h>
+//#include <rthw.h>
 #include <gdb_stub.h>
-#include "1923VK014.h"
+//#include <arch_gdb.h>
+#include "cmsis_device.h"
 
+static Gdb_SavedRegisters *regs;
 #define PS_N 0x80000000
 #define PS_Z 0x40000000
 #define PS_C 0x20000000
@@ -15,7 +30,6 @@
 #define MAKE_THUMB_ADDR(addr) ((addr) | 1)
 #define UNMAKE_THUMB_ADDR(addr) ((addr) & ~1)
 
-static Gdb_SavedRegisters *regs;
 static int compiled_break = 0;
 static unsigned long step_addr = 0;
 static int ins_will_execute(unsigned long ins);
@@ -23,7 +37,29 @@ static unsigned long target_ins(unsigned long *pc, unsigned long ins);
 
 /*struct gdb_arch - Describe architecture specific values.*/
 struct gdb_arch arch_gdb_ops = { { 0xfe, 0xde, 0xff, 0xe7 }  //Little-Endian
-    , 0, 0, 0, 0 };
+};
+
+// struct rt_gdb_register
+// {
+//     rt_uint32_t r0;
+//     rt_uint32_t r1;
+//     rt_uint32_t r2;
+//     rt_uint32_t r3;
+//     rt_uint32_t r4;
+//     rt_uint32_t r5;
+//     rt_uint32_t r6;
+//     rt_uint32_t r7;
+//     rt_uint32_t r8;
+//     rt_uint32_t r9;
+//     rt_uint32_t r10;
+//     rt_uint32_t fp;
+//     rt_uint32_t ip;
+//     rt_uint32_t sp;
+//     rt_uint32_t lr;
+//     rt_uint32_t pc;
+//     rt_uint32_t cpsr;
+//    // rt_uint32_t ORIG_r0;
+// }*regs;
 
 /**
  * gdb_breakpoint - generate a compiled_breadk
@@ -87,8 +123,6 @@ void gdb_put_register(unsigned long *gdb_regs) {
 
 /* It will be called during process_packet */
 int gdb_arch_handle_exception(char *remcom_in_buffer, char *remcom_out_buffer) {
-  (void) remcom_out_buffer;
-
   unsigned long addr, curins;
   char *ptr;
 
@@ -147,8 +181,6 @@ int gdb_arch_handle_exception(char *remcom_in_buffer, char *remcom_out_buffer) {
 
 /* flush icache to let the sw breakpoint working */
 void gdb_flush_icache_range(unsigned long start, unsigned long end) {
-  (void) start;
-  (void) end;
 #ifdef RT_GDB_ICACHE
     extern void mmu_invalidate_icache();
     mmu_invalidate_icache();  //for arm,wo can only invalidate it
@@ -458,15 +490,14 @@ static unsigned long target_ins(unsigned long *pc, unsigned long ins) {
       }
     }
   case 0x3:  // Coprocessor & SWI
-    if (((ins & 0x03000000) == 0x03000000) && ins_will_execute(ins))
-      (void) 0;
-    // SWI
-    // TO DO(wzyy2) some problems.
-    // extern unsigned long vector_swi;
-    // return vector_swi;
-    else
+    if (((ins & 0x03000000) == 0x03000000) && ins_will_execute(ins)) {
+      // SWI
+      // TO DO(wzyy2) some problems.
+      // extern unsigned long vector_swi;
+      // return vector_swi;
+    } else {
       return (unsigned long) (pc + 1);
-    // no break
+    }
   default:
     // Never reached - but fixes compiler warning.
     return 0;

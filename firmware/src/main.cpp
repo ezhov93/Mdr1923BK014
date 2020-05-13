@@ -1,5 +1,6 @@
 #include "led.h"
 #include "gdb.h"
+#include "stdio.h"
 
 Led led;
 
@@ -10,7 +11,6 @@ int main(void) {
 
   while (true) {
     static int cnt = 0;
-
     led.on(0);
     for (int cnt = 0; cnt < 120000; cnt++)
       continue;
@@ -19,13 +19,10 @@ int main(void) {
     for (int cnt = 0; cnt < 120000; cnt++)
       continue;
 
-    printf("%d\r\n",cnt);
+    fprintf(stderr, "Hello\n");
+    fprintf(stderr, "%d\n", cnt);
     cnt++;
   }
 
   return 0;
 }
-
-//void HardFault_Handler() {
-//  led.on(1);
-//}

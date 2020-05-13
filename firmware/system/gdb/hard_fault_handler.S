@@ -2,13 +2,11 @@
     .arch armv7-m
     .cpu cortex-m0
     .thumb
-    .align 3
+    .align 4
 
 	.globl rt_hw_debugmon_exception
 	.globl HardFault_Handler
 
-.weak	HardFault_Handler
-.type	HardFault_Handler, %function
 .thumb_func
 HardFault_Handler:
 				mrs     r0,psp                  ;// Get process stack
