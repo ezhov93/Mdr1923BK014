@@ -37,6 +37,7 @@ class Gdb {
     print(c);
     println();
   }
+//  TODO добавить перегрузку
 
 };
 

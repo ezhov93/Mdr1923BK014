@@ -2,6 +2,7 @@
 #include "1923VK014.h"
 #include <sys/stat.h>
 #include <errno.h>
+#include "gdb_stub.h"
 
 #define UART_FR_RXFE                            ((uint32_t)0x00000010)
 #define UART_FR_TXFF                            ((uint32_t)0x00000020)

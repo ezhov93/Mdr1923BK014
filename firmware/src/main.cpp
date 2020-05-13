@@ -5,8 +5,7 @@
 Led led;
 
 int main(void) {
-  Gdb::init();
-  Gdb::start();
+  Gdb::begin();
   led.init();
 
   while (true) {
@@ -19,8 +18,8 @@ int main(void) {
     for (int cnt = 0; cnt < 120000; cnt++)
       continue;
 
-    fprintf(stderr, "Hello\n");
-    fprintf(stderr, "%d\n", cnt);
+    Gdb::println("Hello\n");
+    Gdb::println(cnt);
     cnt++;
   }
 

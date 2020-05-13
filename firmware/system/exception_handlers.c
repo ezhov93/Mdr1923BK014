@@ -1,46 +1,13 @@
-/*
- * This file is part of the µOS++ distribution.
- *   (https://github.com/micro-os-plus)
- * Copyright (c) 2014 Liviu Ionescu.
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use,
- * copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom
- * the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- */
-
-// ----------------------------------------------------------------------------
-#include "ExceptionHandlers.h"
+#include <exception_handlers.h>
 #include "cmsis_device.h"
 #include <stdio.h>
 #include <string.h>
 
-// ----------------------------------------------------------------------------
+extern void __attribute__((noreturn,weak)) _start(void);
 
-extern void
-__attribute__((noreturn,weak))
-_start(void);
-
-// ----------------------------------------------------------------------------
 // Default exception handlers. Override the ones here by defining your own
 // handler routines in your application code.
-// ----------------------------------------------------------------------------
+
 extern unsigned int _estackprocess;
 extern unsigned int _estack;
 
@@ -63,9 +30,7 @@ void __attribute__ ((section(".after_vectors"),noreturn)) Reset_Handler(void) {
 #else
 
 // The Release version is optimised to a quick branch to _start.
-void __attribute__ ((section(".after_vectors"),naked))
-Reset_Handler(void)
-  {
+void __attribute__ ((section(".after_vectors"),naked)) Reset_Handler(void) {
     asm volatile
     (
         " ldr     r0,=_start \n"
@@ -89,7 +54,6 @@ void __attribute__ ((section(".after_vectors"),weak)) NMI_Handler(void) {
 // ----------------------------------------------------------------------------
 
 #if defined(TRACE)
-
 void dumpExceptionStack(ExceptionStackFrame *frame, uint32_t lr) {
   fprintf(stderr, "Stack frame:\n");
   fprintf(stderr, " R0 =  %08X\n", frame->r0);
@@ -103,7 +67,6 @@ void dumpExceptionStack(ExceptionStackFrame *frame, uint32_t lr) {
   fprintf(stderr, "Misc\n");
   fprintf(stderr, " LR/EXC_RETURN= %08X\n", lr);
 }
-
 #endif // defined(TRACE)
 
 // Hard Fault handler wrapper in assembly.
@@ -176,5 +139,3 @@ void __attribute__ ((section(".after_vectors"),weak)) SysTick_Handler(void) {
   // Useful in case someone (like STM HAL) inadvertently enables SysTick.
   ;
 }
-
-// ----------------------------------------------------------------------------
