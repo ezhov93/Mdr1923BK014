@@ -188,3 +188,299 @@
 (gdb) 
 75^error,msg="No symbol \"line\" in current context."
 (gdb) 
+76^done,value="{void (void)} 0x15c <Reset_Handler>"
+(gdb) 
+77^done,name="var6",numchild="0",value="{void (void)} 0x15c <Reset_Handler>",type="void (void)",has_more="0"
+(gdb) 
+78^done,format="octal",value="020"
+(gdb) 
+79^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
+(gdb) 
+80^done,format="decimal",value="16"
+(gdb) 
+81^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
+(gdb) 
+82^done,format="binary",value="10000"
+(gdb) 
+83^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
+(gdb) 
+84^done,format="hexadecimal",value="0x10"
+(gdb) 
+85^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
+(gdb) 
+86^done,value="{void (void)} 0x174 <NMI_Handler>"
+(gdb) 
+87^done,name="var7",numchild="0",value="{void (void)} 0x174 <NMI_Handler>",type="void (void)",has_more="0"
+(gdb) 
+88^done,format="octal",value="0"
+(gdb) 
+89^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
+(gdb) 
+90^done,format="decimal",value="0"
+(gdb) 
+91^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
+(gdb) 
+92^done,format="binary",value="0"
+(gdb) 
+93^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
+(gdb) 
+94^done,format="hexadecimal",value="0x0"
+(gdb) 
+95^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
+(gdb) 
+96^error,msg="No symbol \"failedexpr\" in current context."
+(gdb) 
+97^error,msg="No symbol \"_REENT\" in current context."
+(gdb) 
+98^error,msg="No symbol \"pid\" in current context."
+(gdb) 
+99^error,msg="A syntax error in expression, near `and'."
+(gdb) 
+100^done,value="1"
+(gdb) 
+101^done,name="var8",numchild="0",value="1",type="int",has_more="0"
+(gdb) 
+102^done,format="octal",value="01"
+(gdb) 
+103^done,format="natural",value="1"
+(gdb) 
+104^done,format="decimal",value="1"
+(gdb) 
+105^done,format="natural",value="1"
+(gdb) 
+106^done,format="binary",value="1"
+(gdb) 
+107^done,format="natural",value="1"
+(gdb) 
+108^done,format="hexadecimal",value="0x1"
+(gdb) 
+109^done,format="natural",value="1"
+(gdb) 
+110^done,value="0x40099000"
+(gdb) 
+111^done,name="var9",numchild="16",value="0x40099000",type="MDR_UART_TypeDef *",has_more="0"
+(gdb) 
+112^done,numchild="16",children=[child={name="var9.DR",exp="DR",numchild="0",type="volatile uint32_t"},child={name="var9.RSR_ECR",exp="RSR_ECR",numchild="0",type="volatile uint32_t"},child={name="var9.Reserved1",exp="Reserved1",numchild="4",type="volatile uint32_t [4]"},child={name="var9.FR",exp="FR",numchild="0",type="volatile uint32_t"},child={name="var9.Reserved2",exp="Reserved2",numchild="0",type="volatile uint32_t"},child={name="var9.ILPR",exp="ILPR",numchild="0",type="volatile uint32_t"},child={name="var9.IBRD",exp="IBRD",numchild="0",type="volatile uint32_t"},child={name="var9.FBRD",exp="FBRD",numchild="0",type="volatile uint32_t"},child={name="var9.LCR_H",exp="LCR_H",numchild="0",type="volatile uint32_t"},child={name="var9.CR",exp="CR",numchild="0",type="volatile uint32_t"},child={name="var9.IFLS",exp="IFLS",numchild="0",type="volatile uint32_t"},child={name="var9.IMSC",exp="IMSC",numchild="0",type="volatile uint32_t"},child={name="var9.RIS",exp="RIS",numchild="0",type="volatile uint32_t"},child={name="var9.MIS",exp="MIS",numchild="0",type="volatile uint32_t"},child={name="var9.ICR",exp="ICR",numchild="0",type="volatile uint32_t"},child={name="var9.DMACR",exp="DMACR",numchild="0",type="volatile uint32_t"}],has_more="0"
+(gdb) 
+113^done,path_expr="(MDR_UART0)->DR"
+(gdb) 
+114^done,path_expr="(MDR_UART0)->RSR_ECR"
+(gdb) 
+115^done,path_expr="(MDR_UART0)->Reserved1"
+(gdb) 
+116^done,path_expr="(MDR_UART0)->FR"
+(gdb) 
+117^done,path_expr="(MDR_UART0)->Reserved2"
+(gdb) 
+118^done,path_expr="(MDR_UART0)->ILPR"
+(gdb) 
+119^done,path_expr="(MDR_UART0)->IBRD"
+(gdb) 
+120^done,path_expr="(MDR_UART0)->FBRD"
+(gdb) 
+121^done,path_expr="(MDR_UART0)->LCR_H"
+(gdb) 
+122^done,path_expr="(MDR_UART0)->CR"
+(gdb) 
+123^done,path_expr="(MDR_UART0)->IFLS"
+(gdb) 
+124^done,path_expr="(MDR_UART0)->IMSC"
+(gdb) 
+125^done,path_expr="(MDR_UART0)->RIS"
+(gdb) 
+126^done,path_expr="(MDR_UART0)->MIS"
+(gdb) 
+127^done,path_expr="(MDR_UART0)->ICR"
+(gdb) 
+128^done,path_expr="(MDR_UART0)->DMACR"
+(gdb) 
+129^done,value="51"
+(gdb) 
+130^done,name="var10",numchild="0",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>",type="void (const char *, unsigned int)",has_more="0"
+(gdb) 
+131^done,format="octal",value="020"
+(gdb) 
+132^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
+(gdb) 
+133^done,format="decimal",value="16"
+(gdb) 
+134^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
+(gdb) 
+135^done,format="binary",value="10000"
+(gdb) 
+136^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
+(gdb) 
+137^done,format="hexadecimal",value="0x10"
+(gdb) 
+138^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
+(gdb) 
+139^error,msg="-data-evaluate-expression: Usage: -data-evaluate-expression expression"
+(gdb) 
+140^error,msg="No symbol \"STDOUT\" in current context."
+(gdb) 
+141^done,bkpt={number="2",type="breakpoint",disp="keep",enabled="y",addr="0x0000162e",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="23",thread-groups=["i1"],times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:23"}
+(gdb) 
+142^done
+(gdb) 
+143^error,msg="No symbol \"begin\" in current context."
+(gdb) 
+144^done,value="{void (void)} 0x158 <Default_Handler>"
+(gdb) 
+145^error,msg="No symbol \"TIM0_IRQHandler\" in current context."
+(gdb) 
+146^error,msg="No symbol \"CCSDS_TX_IRQHandler\" in current context."
+(gdb) 
+147^error,msg="No symbol \"GPIO_IRQHandler\" in current context."
+(gdb) 
+148^error,msg="No symbol \"BKP_IRQHandler\" in current context."
+(gdb) 
+149^error,msg="No symbol \"CLOCK\" in current context."
+(gdb) 
+150^error,msg="No symbol \"RST_CLOCK_MAX_CLK_Select_Msk\" in current context."
+(gdb) 
+151^error,msg="No symbol \"MDR_RST_CLOCK_MAX_CLK_Select_Msk\" in current context."
+(gdb) 
+152^error,msg="No symbol \"MDR_CLOCK\" in current context."
+(gdb) 
+153^error,msg="No symbol \"EBC_ERROR_IRQn\" in current context."
+(gdb) 
+154^error,msg="Attempt to use a type name as an expression"
+(gdb) 
+155^error,msg="No symbol \"MAXCLK_PLL0\" in current context."
+(gdb) 
+156^done,value="0"
+(gdb) 
+157^done,name="var11",numchild="0",value="0",type="volatile uint32_t",has_more="0"
+(gdb) 
+158^done,format="octal",value="0"
+(gdb) 
+159^done,format="natural",value="0"
+(gdb) 
+160^done,format="decimal",value="0"
+(gdb) 
+161^done,format="natural",value="0"
+(gdb) 
+162^done,format="binary",value="0"
+(gdb) 
+163^done,format="natural",value="0"
+(gdb) 
+164^done,format="hexadecimal",value="0x0"
+(gdb) 
+165^done,format="natural",value="0"
+(gdb) 
+166^done,value="0"
+(gdb) 
+167^done,name="var12",numchild="0",value="0",type="volatile uint32_t",has_more="0"
+(gdb) 
+168^done,format="octal",value="0"
+(gdb) 
+169^done,format="natural",value="0"
+(gdb) 
+170^done,format="decimal",value="0"
+(gdb) 
+171^done,format="natural",value="0"
+(gdb) 
+172^done,format="binary",value="0"
+(gdb) 
+173^done,format="natural",value="0"
+(gdb) 
+174^done,format="hexadecimal",value="0x0"
+(gdb) 
+175^done,format="natural",value="0"
+(gdb) 
+176^error,msg="No symbol \"MDR_RST_CLK_DIV_Msk\" in current context."
+(gdb) 
+177^error,msg="No symbol \"MDR_KEY_UNLOCK\" in current context."
+(gdb) 
+178^error,msg="No symbol \"MDR_FTCNTR\" in current context."
+(gdb) 
+179^error,msg="No symbol \"FTCNTR\" in current context."
+(gdb) 
+180^error,msg="No symbol \"MDR_BKP_REG60_PORSTn_Dis_Msk\" in current context."
+(gdb) 
+181^error,msg="No symbol \"SYSTEM_CLOCK\" in current context."
+(gdb) 
+182^error,msg="No symbol \"PRIMARY_CH1_SOURCE_END_POINTER\" in current context."
+(gdb) 
+183^done,bkpt={number="3",type="breakpoint",disp="keep",enabled="y",addr="0x00001622",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="22",thread-groups=["i1"],times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:22"}
+(gdb) 
+184^done
+(gdb) 
+185^error,msg="A syntax error in expression, near `'."
+(gdb) 
+186^error,msg="No symbol \"CLK_CNTR_MAXCLK_SEL\" in current context."
+(gdb) 
+187^error,msg="No symbol \"MAXCLK_PLL2\" in current context."
+(gdb) 
+188^error,msg="No symbol \"_GenFreqsHz\" in current context."
+(gdb) 
+189^done,value="8000000"
+(gdb) 
+190^done,name="var13",numchild="0",value="8000000",type="unsigned long",has_more="0"
+(gdb) 
+191^done,format="octal",value="036411000"
+(gdb) 
+192^done,format="natural",value="8000000"
+(gdb) 
+193^done,format="decimal",value="8000000"
+(gdb) 
+194^done,format="natural",value="8000000"
+(gdb) 
+195^done,format="binary",value="11110100001001000000000"
+(gdb) 
+196^done,format="natural",value="8000000"
+(gdb) 
+197^done,format="hexadecimal",value="0x7a1200"
+(gdb) 
+198^done,format="natural",value="8000000"
+(gdb) 
+199^error,msg="Invalid number \"1923VK014\"."
+(gdb) 
+200^error,msg="No symbol \"__SYSTEM_CLOCK\" in current context."
+(gdb) 
+201^error,msg="No symbol \"CLK_SEL_COUNT\" in current context."
+(gdb) 
+202^done,value="2"
+(gdb) 
+203^done,name="var14",numchild="0",value="2",type="int",has_more="0"
+(gdb) 
+204^done,format="octal",value="02"
+(gdb) 
+205^done,format="natural",value="2"
+(gdb) 
+206^done,format="decimal",value="2"
+(gdb) 
+207^done,format="natural",value="2"
+(gdb) 
+208^done,format="binary",value="10"
+(gdb) 
+209^done,format="natural",value="2"
+(gdb) 
+210^done,format="hexadecimal",value="0x2"
+(gdb) 
+211^done,format="natural",value="2"
+(gdb) 
+212^error,msg="No symbol \"__HSE1\" in current context."
+(gdb) 
+213^error,msg="No symbol \"MDR_RST_PLL_SELECT\" in current context."
+(gdb) 
+214^error,msg="No symbol \"regCLK\" in current context."
+(gdb) 
+215^done,value="0"
+(gdb) 
+216^error,msg="No symbol \"FERQ_FAULT_HZ\" in current context."
+(gdb) 
+217^error,msg="No symbol \"MDR_MaxClock\" in current context."
+(gdb) 
+218^done,value="0x40000000"
+(gdb) 
+219^error,msg="No symbol \"FTCTRL_EVENT_COUNT\" in current context."
+(gdb) 
+~"Kill the program being debugged? (y or n) [answered Y; input not from terminal]\n"
+=thread-group-exited,id="i1"
+~"[Inferior 1 (Remote target) killed]\n"
+220^done
+(gdb) 
+221^done,groups=[{id="i1",type="process"}]
+(gdb) 
+222^exit

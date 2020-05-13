@@ -1,6 +1,5 @@
 #include "led.h"
 #include "gdb.h"
-#include "stdio.h"
 
 Led led;
 

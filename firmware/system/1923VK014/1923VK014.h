@@ -1,4 +1,3 @@
-
 #ifndef __CM0IKMCU_H__
 #define __CM0IKMCU_H__
 
@@ -10,7 +9,7 @@
 
 typedef enum IRQn {
   /******  Cortex-M0 Processor Exceptions Numbers
-     ***************************************************/
+   ***************************************************/
   NonMaskableInt_IRQn = -14,
   HardFault_IRQn = -13,
   SVCall_IRQn = -5,
@@ -467,8 +466,8 @@ typedef struct {
 } DMA_AlterData_TypeDef;
 /***
 
-*  Cache control
-**/
+ *  Cache control
+ **/
 typedef struct {
   __IO uint32_t KEY;
   __IO uint32_t CNTL;
@@ -1142,10 +1141,10 @@ typedef struct {
 #define CLK_CNTR ((CLKControl *)CLK_CNTR_BASE)
 
 /*
-#define	BKP_BASE	    (( uint32_t) 0x040001000)
-#define BKP_KEY 	    ((uint32_t)	0x8555aaa1)
+ #define	BKP_BASE	    (( uint32_t) 0x040001000)
+ #define BKP_KEY 	    ((uint32_t)	0x8555aaa1)
 
-*/
+ */
 
 /***
  *  PORT control
@@ -1226,8 +1225,8 @@ typedef struct {
 #define PWRVAL(pin, pwr) ((pwr & PWR_MASK) << ((pin % 16) << 1))
 
 /****
-/ USB controller interface
-**/
+ / USB controller interface
+ **/
 typedef struct {
   __IO uint32_t HTXC;
   __IO uint32_t HTXT;

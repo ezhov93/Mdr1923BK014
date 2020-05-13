@@ -1,16 +1,15 @@
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef 1923VK014_CONF_H
-#define 1923VK014_CONF_H
+#ifndef _1923VK014_CONF_H
+#define _1923VK014_CONF_H
 
-/* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
-/* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
+#define __HSI         (8000000UL)
+#define __LSI         (  40000UL)
+#define __HSE0        (8000000UL)
+#define __HSE1        (8000000UL)
+#define __LSE         (  32768UL)
+#define __SYSTEM_CLOCK    (__HSI)
 
-/* Exported macro ------------------------------------------------------------*/
 
-
-#endif /*1923VK014_CONF_H */
+#endif /*_1923VK014_CONF_H */
 
