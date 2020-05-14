@@ -8,21 +8,16 @@
 #define FERQ_FAULT_HZ       __HSI
 
 uint32_t SystemCoreClock = __SYSTEM_CLOCK;
-uint32_t MaxClock = __SYSTEM_CLOCK;
+uint32_t SystemCoreMaxClock = __SYSTEM_CLOCK;
 
-void SystemCoreClockUpdate(void)
-{
-  uint32_t regCLK;
-  uint32_t pll_source, pll_N, pll_Q, pll_DIV;
-  uint32_t sel_max_clk, sel_pll;
+void SystemCoreClockUpdate(void) {
   uint32_t freqHz;
-
-  sel_max_clk = CLK_CNTR->MAX_CLK & CLK_CNTR_MAX_CLK_Select_Msk;
-
-  if (sel_max_clk < MAXCLK_PLL0)
-    freqHz = GenFreqsHz[sel_max_clk];
-  else if (sel_max_clk <= MAXCLK_PLL2) {
-    switch (sel_max_clk) {
+  uint32_t selMaxClk = CLK_CNTR->MAX_CLK & CLK_CNTR_MAX_CLK_Select_Msk;
+  if (selMaxClk < MAXCLK_PLL0) {
+    freqHz = GenFreqsHz[selMaxClk];
+  } else if (selMaxClk <= MAXCLK_PLL2) {
+    uint32_t regCLK;
+    switch (selMaxClk) {
       case MAXCLK_PLL1:
         regCLK = CLK_CNTR->PLL1_CLK;
         break;
@@ -33,25 +28,27 @@ void SystemCoreClockUpdate(void)
         regCLK = CLK_CNTR->PLL0_CLK;
         break;
     }
-    sel_pll = _FLD2VAL(CLK_CNTR_PLL_SELECT_Pos, regCLK);
-    if (sel_pll < CLK_SEL_COUNT_PLL) {
-      pll_source = GenFreqsHz[sel_pll];
+    uint32_t selPll = _FLD2VAL(RST_PLL_SELECT, regCLK);
+    if (selPll < CLK_SEL_COUNT_PLL) {
+      uint32_t pllSource = GenFreqsHz[selPll];
 
-      pll_Q = _FLD2VAL(RST_PLL_PLL_Q_Pos, regCLK);
-      pll_DIV = _FLD2VAL(RST_PLL_DV_Pos, regCLK);
-      pll_N = _FLD2VAL(RST_PLL_PLL_N_Pos, regCLK);
-      if (pll_N == 0)
-        pll_N = 2;
+      uint32_t pllQ = _FLD2VAL(RST_PLL_PLL_Q, regCLK);
+      uint32_t pllDiv = _FLD2VAL(RST_PLL_DV, regCLK);
+      uint32_t pllN = _FLD2VAL(RST_PLL_PLL_N, regCLK);
+      if (pllN == 0)
+        pllN = 2;
 
-      freqHz = ((pll_source * pll_N / (pll_Q + 1)) / (pll_DIV + 1));
-    } else
+      freqHz = ((pllSource * pllN / (pllQ + 1)) / (pllDiv + 1));
+    } else {
       freqHz = FERQ_FAULT_HZ;
-  } else
+    }
+  } else {
     freqHz = FERQ_FAULT_HZ;
+  }
 
   uint32_t freqDiv = (CLK_CNTR->CPU_CLK & RST_CLK_DIV_Msk) >> RST_CLK_DIV_Pos;
 
-  MaxClock = freqHz;
+  SystemCoreMaxClock = freqHz;
   SystemCoreClock = freqHz / (freqDiv + 1);
 }
 

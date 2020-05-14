@@ -9,6 +9,7 @@ extern "C" {
 
 // < System Clock Frequency (Core Clock)
 extern uint32_t SystemCoreClock;
+extern uint32_t SystemCoreMaxClock;
 
 // Initialize the System and update the SystemCoreClock variable.
 extern void SystemInit(void);
