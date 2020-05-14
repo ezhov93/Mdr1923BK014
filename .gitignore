@@ -205,3 +205,5 @@ compile_commands.json
 *.creator.user*
 
 # Qt Creator backups
+
+/FreeRTOS_TAD_logs/
