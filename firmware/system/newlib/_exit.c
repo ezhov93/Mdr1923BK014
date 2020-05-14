@@ -17,7 +17,7 @@ void __attribute__((weak)) _exit(int code __attribute__((unused))) {
   __reset_hardware();
 #endif
 
-  // TODO: write on trace
+  fprintf(stderr, "exited with code%d", code);
   while (1)
     ;
 }
