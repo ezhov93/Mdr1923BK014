@@ -11,10 +11,13 @@
 
 int _write(int fd __attribute__((unused)), char *ptr, int len) {
   if (fd == STDERR) {
-   gdb_console_write(ptr, len);
-  }
-  else if (fd == STDOUT) {
-
+    gdb_console_write(ptr, len);
+  } else if (fd == STDOUT) {
+    for (int i = 0; i < len; ++i) {
+      while (MDR_UART0->FR & UART_FR_TXFF)
+        continue;
+      MDR_UART0->DR = ptr[i] & 0xff;
+    }
   }
   return len;
 }
