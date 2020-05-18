@@ -3,6 +3,8 @@
 
 #include "Global.h"
 
+// ToDo: methods
+
 class Pin {
  public:
   enum Function {
@@ -24,22 +26,39 @@ class Pin {
     Function15,
   };
 
-  constexpr Pin(uint portAddr, uint number) :
-      _portAddr(portAddr), _number(number), _function(Function0) {
+  enum Mode {
+    Input,
+    InputPullup,
+    InputPulldown,
+    AnalogInput,
+    Output,
+    OutputPullup,
+    OutputPulldown,
+    AnalogOutput
+  };
+
+  constexpr Pin(const uint portAddr, const uint number) :
+      _portAddr(portAddr), _number(number) {
   }
 
   ~Pin() = default;
 
-  void write() const;
-  void read() const;
+  void init(const Mode, const Function function = Function0) const;
   void set() const;
   void reset() const;
-  void setFunction();
-  void function();
+  void write(bool state) const {
+    (state ? set() : reset());
+  }
+  bool read() const;
+
  private:
+  constexpr uint numberPos() const {
+    return (1 << _number);
+  }
   const uint _portAddr;
   const uint _number;
-  int _function;
 };
+
+#include "PinMap.h"
 
 #endif /* SYSTEM_1923VK014_DRIVERS_PIN_H_ */
