@@ -53,8 +53,6 @@ void SystemCoreClockUpdate(void) {
 }
 
 void SystemInit(void) {
-  //  TODO: add code to initialize the system do not use global variable
-
   //  Disable Reset by Upor
   BKP->KEY = _KEY_;
   BKP->REG_60_TMR0 |= BKP_REG60_PORSTn_Dis_Msk;

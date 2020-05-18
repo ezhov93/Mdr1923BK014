@@ -1,11 +1,11 @@
 #ifndef SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
 #define SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
 
-#include "StreamInterface.h"
+#include <libraries/StreamInterface.h>
 #include "libraries/Global.h"
 #include "libraries/Ring.h"
 
-// TODO: pins
+// TODO: pins and methods
 
 class SerialAbstract : public StreamInterface {
  public:
