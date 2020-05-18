@@ -54,7 +54,7 @@ class Ring {
 
   int size() const { return Size; }
 
-  int count() const {
+  int available() const {
     int cnt = _tail - _head;
     if (cnt < 0)
       return (Size - 1) - _head + _tail;
