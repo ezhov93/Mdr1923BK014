@@ -1,9 +1,9 @@
 #include <stdint.h>
 
 #include "1923VK014.h"
-#include "1923VK014_conf.h"
+#include "config_1923VK014.h"
 #include "core_cm0.h"
-#include "system_1923VK014_defs.h"
+#include "defs_1923VK014.h"
 
 #define CLK_SEL_COUNT_PLL PLL_IN_HSE1div2 + 1
 #define FERQ_FAULT_HZ __HSI

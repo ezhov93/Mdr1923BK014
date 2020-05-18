@@ -22,9 +22,8 @@
 #ifndef __GDB_STUB_H__
 #define __GDB_STUB_H__
 
-#include <arch_gdb.h>
-
 #include "config_gdb.h"
+#include "gdb\arch_gdb.h"
 
 #ifndef RT_GDB_MAX_BREAKPOINTS
 #define GDB_MAX_BREAKPOINTS 20

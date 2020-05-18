@@ -1,22 +1,4 @@
-/*
- * CORTEXM GDB support
- * arch-specific portion of GDB stub
- *
- * File      : cortexm_stub.c
- * This file is part of RT-Thread RTOS
- * COPYRIGHT (C) 2006, RT-Thread Develop Team
- *
- * The license and distribution terms for this file may be
- * found in the file LICENSE in this distribution or at
- * http://www.rt-thread.org/license/LICENSE
- *
- * Change Logs:
- * Date           Author       Notes
- * 2014-07-04     Wzyy2      first version
- */
-//#include <rtthread.h>
-//#include <rthw.h>
-#include <gdb_stub.h>
+#include "gdb\gdb_stub.h"
 
 static Gdb_SavedRegisters *regs;
 unsigned long single_step_basepri = 0;
@@ -26,16 +8,6 @@ void gdb_enable_hw_debug();
 void gdb_disable_hw_debug();
 int gdb_set_hw_break(unsigned long, int, enum gdb_bptype);
 int gdb_remove_hw_break(unsigned long, int, enum gdb_bptype);
-
-// /*struct gdb_arch - Describe architecture specific values.*/
-// struct gdb_arch arch_gdb_ops = {
-// 	/* Breakpoint instruction: */
-//     {0xfe, 0xde, 0xff, 0xe7},  //Little-Endian
-//     RT_GDB_HAVE_HWBP,
-//     gdb_set_hw_break,
-//     gdb_remove_hw_break,
-//     gdb_remove_all_hw_break
-// };
 
 static struct hw_breakpoint {
   int enabled;

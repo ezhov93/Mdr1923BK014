@@ -66,8 +66,8 @@ class Ring {
 
  private:
   T _data[Size];
-  volatile int _tail;
   volatile int _head;
+  volatile int _tail;
 };
 
 #endif /* SYSTEM_LIBRARIES_RING_H_ */

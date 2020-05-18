@@ -1,19 +1,15 @@
 #ifndef SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
 #define SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
 
-#include "Global.h"
-#include "Ring.h"
+#include "StreamInterface.h"
+#include "libraries/Global.h"
+#include "libraries/Ring.h"
 
 // TODO: pins
 
-class SerialAbstract {
+class SerialAbstract : public StreamInterface {
  public:
-  enum DataBits {
-    Data5 = 0x00,
-    Data6 = 0x20,
-    Data7 = 0x40,
-    Data8 = 0x60
-  };
+  enum DataBits { Data5 = 0x00, Data6 = 0x20, Data7 = 0x40, Data8 = 0x60 };
   enum Parity {
     NoParity = 0x00,
     EvenParity = 0x06,
@@ -21,16 +17,9 @@ class SerialAbstract {
     MarkParity = 0x82,
     SpaceParity = 0x86
   };
-  enum StopBits {
-    OneStop = 0x00,
-    TwoStop = 0x08
-  };
-  enum Event {
-    TransmittedData,
-    ReceivedData
-  };
+  enum StopBits { OneStop = 0x00, TwoStop = 0x08 };
+  enum Event { TransmittedData, ReceivedData };
 
-  constexpr virtual SerialAbstract() = 0;
   ~SerialAbstract() = default;
   void begin();
   void begin(int baudrate);
@@ -49,19 +38,12 @@ class SerialAbstract {
   int availableForWrite(void);
   virtual void flush(void);
   virtual int write(unsigned char ch);
-  virtual int write(const void *buf, int len);
-  int write(unsigned long n) {
-    return write(static_cast<unsigned char>(n));
-  }
-  int write(long n) {
-    return write(static_cast<unsigned char>(n));
-  }
-  int write(unsigned int n) {
-    return write(static_cast<unsigned char>(n));
-  }
-  int write(int n) {
-    return write(static_cast<unsigned char>(n));
-  }
+  virtual int write(const void* buf, int len);
+  int write(unsigned long n) { return write(static_cast<unsigned char>(n)); }
+  int write(long n) { return write(static_cast<unsigned char>(n)); }
+  int write(unsigned int n) { return write(static_cast<unsigned char>(n)); }
+  int write(int n) { return write(static_cast<unsigned char>(n)); }
+
  private:
   const uint _base;
   const uint _irq;
@@ -72,4 +54,4 @@ class SerialAbstract {
   StopBits _stopBits;
 };
 
-#endif // SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
+#endif  // SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H

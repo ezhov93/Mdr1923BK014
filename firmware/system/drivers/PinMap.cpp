@@ -1,6 +1,5 @@
-#include "PinMap.h"
-
 #include "1923VK014.h"
+#include "Pin.h"
 
 // PortA
 const Pin PA0(PORTA_BASE, 0);
