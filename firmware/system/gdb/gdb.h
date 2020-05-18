@@ -24,7 +24,7 @@ class Gdb {
     fprintf(stderr, "%c", ch);
   }
 
-  static void print(const char str[]) {
+  static void print(const char *str) {
     fprintf(stderr, str);
   }
 
@@ -63,7 +63,7 @@ class Gdb {
     println();
   }
 
-  static void println(const char str[]) {
+  static void println(const char *str) {
     print(str);
     println();
   }
