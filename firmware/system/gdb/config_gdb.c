@@ -69,7 +69,6 @@ void UartPortsConfig(void) {
 }
 
 void StartGDB(void) {
-  PorDisable();      // Disable POR and hide all errors
   ClockConfig();     // HSE configuration
   UartPortsConfig(); // GPIO configuration for UART0
   UartConfig();      // UART0 configuration
