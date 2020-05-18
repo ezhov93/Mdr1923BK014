@@ -1,15 +1,15 @@
 int errno;
-void *__dso_handle __attribute__ ((weak));
+void *__dso_handle __attribute__((weak));
 
 #include <_ansi.h>
 #include <_syslist.h>
 #include <errno.h>
 //#include <sys/types.h>
+#include <limits.h>
+#include <signal.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/times.h>
-#include <limits.h>
-#include <signal.h>
 
 void __initialize_args(int *p_argc, char ***p_argv);
 
@@ -31,7 +31,7 @@ void __attribute__((weak)) __initialize_args(int *p_argc, char ***p_argv) {
   // argv[0][0] shall be the null character if the program name is not
   // available from the host environment. argv[argc] shall be a null pointer.
   // (static, no const)
-  static char *argv[2] = { name, NULL };
+  static char *argv[2] = {name, NULL};
 
   *p_argc = 1;
   *p_argv = &argv[0];

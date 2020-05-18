@@ -1,11 +1,12 @@
 #include <stdint.h>
-#include "1923VK014_conf.h"
-#include "1923VK014.h"
-#include "system_1923VK014_defs.h"
-#include "core_cm0.h"
 
-#define CLK_SEL_COUNT_PLL   PLL_IN_HSE1div2 + 1
-#define FERQ_FAULT_HZ       __HSI
+#include "1923VK014.h"
+#include "1923VK014_conf.h"
+#include "core_cm0.h"
+#include "system_1923VK014_defs.h"
+
+#define CLK_SEL_COUNT_PLL PLL_IN_HSE1div2 + 1
+#define FERQ_FAULT_HZ __HSI
 
 uint32_t SystemCoreClock = __SYSTEM_CLOCK;
 uint32_t SystemCoreMaxClock = __SYSTEM_CLOCK;
@@ -35,8 +36,7 @@ void SystemCoreClockUpdate(void) {
       uint32_t pllQ = _FLD2VAL(RST_PLL_PLL_Q, regCLK);
       uint32_t pllDiv = _FLD2VAL(RST_PLL_DV, regCLK);
       uint32_t pllN = _FLD2VAL(RST_PLL_PLL_N, regCLK);
-      if (pllN == 0)
-        pllN = 2;
+      if (pllN == 0) pllN = 2;
 
       freqHz = ((pllSource * pllN / (pllQ + 1)) / (pllDiv + 1));
     } else {
@@ -53,9 +53,9 @@ void SystemCoreClockUpdate(void) {
 }
 
 void SystemInit(void) {
-//  TODO: add code to initialize the system do not use global variable
+  //  TODO: add code to initialize the system do not use global variable
 
-//  Disable Reset by Upor
+  //  Disable Reset by Upor
   BKP->KEY = _KEY_;
   BKP->REG_60_TMR0 |= BKP_REG60_PORSTn_Dis_Msk;
   BKP->REG_60_TMR1 |= BKP_REG60_PORSTn_Dis_Msk;
@@ -76,8 +76,7 @@ void SystemInit(void) {
 
   //  Clear EVENTS
   uint32_t i;
-  for (i = 0; i < FTCTRL_EVENT_COUNT; ++i)
-    FT_CNTR->EVENT[i] = 0xFFFFFFFFUL;
+  for (i = 0; i < FTCTRL_EVENT_COUNT; ++i) FT_CNTR->EVENT[i] = 0xFFFFFFFFUL;
 
   FT_CNTR->KEY = 0;
   FT_CNTR->KEY = 0;

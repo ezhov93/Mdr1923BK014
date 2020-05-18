@@ -3,8 +3,6 @@
 
 #include "Global.h"
 
-// ToDo: methods
-
 class Pin {
  public:
   enum Function {
@@ -37,24 +35,19 @@ class Pin {
     AnalogOutput
   };
 
-  constexpr Pin(const uint portAddr, const uint number) :
-      _portAddr(portAddr), _number(number) {
-  }
+  constexpr Pin(const uint portAddr, const uint number)
+      : _portAddr(portAddr), _number(number) {}
 
   ~Pin() = default;
 
   void init(const Mode, const Function function = Function0) const;
   void set() const;
   void reset() const;
-  void write(bool state) const {
-    (state ? set() : reset());
-  }
+  void write(bool state) const { (state ? set() : reset()); }
   bool read() const;
 
  private:
-  constexpr uint numberPos() const {
-    return (1 << _number);
-  }
+  constexpr uint numberPos() const { return (1 << _number); }
   const uint _portAddr;
   const uint _number;
 };

@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #if defined(DEBUG)
-#define __DEBUG_BKPT()  asm volatile ("bkpt 0")
+#define __DEBUG_BKPT() asm volatile("bkpt 0")
 #endif
 
 #if defined(__cplusplus)
@@ -36,7 +36,7 @@ typedef struct {
 
 #if defined(TRACE)
 void dumpExceptionStack(ExceptionStackFrame *frame, uint32_t lr);
-#endif // defined(TRACE)
+#endif  // defined(TRACE)
 
 void HardFault_Handler_C(ExceptionStackFrame *frame, uint32_t lr);
 
@@ -44,4 +44,4 @@ void HardFault_Handler_C(ExceptionStackFrame *frame, uint32_t lr);
 }
 #endif
 
-#endif // EXCEPTION_HANDLERS_H
+#endif  // EXCEPTION_HANDLERS_H

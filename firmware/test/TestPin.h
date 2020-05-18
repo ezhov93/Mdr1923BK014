@@ -2,13 +2,13 @@
 #define TEST_TESTPIN_H_
 
 #include <assert.h>
-#include "TestInterface.h"
+
 #include "Pin.h"
+#include "TestInterface.h"
 
 class TestPin : public TestInterface {
  public:
-  constexpr TestPin() : led0(PC0), led7(PC7) {
-  }
+  constexpr TestPin() : led0(PC0), led7(PC7) {}
 
   virtual void exec() final {
     printf("*** TEST PIN ***\r\n");
@@ -36,12 +36,12 @@ class TestPin : public TestInterface {
 
  private:
   void delay() {
-    for (__IO int cnt = 0; cnt < 120000; cnt++)
-      ;
+    volatile int cnt = 0;
+    while (cnt < 120000) ++cnt;
   }
 
   const Pin &led0;
   const Pin &led7;
 };
 
-#endif // TEST_TESTPIN_H_
+#endif  // TEST_TESTPIN_H_

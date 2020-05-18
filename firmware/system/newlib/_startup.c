@@ -87,7 +87,7 @@ extern unsigned int __bss_regions_array_start;
 extern unsigned int __bss_regions_array_end;
 #endif
 
-extern void __initialize_args(int*, char***);
+extern void __initialize_args(int *, char ***);
 
 // main() is the entry point for newlib based applications.
 // By default, there are no arguments, but this can be customised
@@ -106,7 +106,7 @@ extern void __attribute__((noreturn)) _exit(int);
 void _start(void);
 
 void __initialize_data(unsigned int *from, unsigned int *region_begin,
-    unsigned int *region_end);
+                       unsigned int *region_end);
 
 void __initialize_bss(unsigned int *region_begin, unsigned int *region_end);
 
@@ -120,22 +120,21 @@ void __initialize_hardware(void);
 
 // ----------------------------------------------------------------------------
 
-inline void __attribute__((always_inline)) __initialize_data(unsigned int *from,
-    unsigned int *region_begin, unsigned int *region_end) {
+inline void __attribute__((always_inline))
+__initialize_data(unsigned int *from, unsigned int *region_begin,
+                  unsigned int *region_end) {
   // Iterate and copy word by word.
   // It is assumed that the pointers are word aligned.
   unsigned int *p = region_begin;
-  while (p < region_end)
-    *p++ = *from++;
+  while (p < region_end) *p++ = *from++;
 }
 
-inline void __attribute__((always_inline)) __initialize_bss(
-    unsigned int *region_begin, unsigned int *region_end) {
+inline void __attribute__((always_inline))
+__initialize_bss(unsigned int *region_begin, unsigned int *region_end) {
   // Iterate and clear word by word.
   // It is assumed that the pointers are word aligned.
   unsigned int *p = region_begin;
-  while (p < region_end)
-    *p++ = 0;
+  while (p < region_end) *p++ = 0;
 }
 
 // These magic symbols are provided by the linker.
@@ -152,8 +151,7 @@ inline void __attribute__((always_inline)) __run_init_array(void) {
   int i;
 
   count = __preinit_array_end - __preinit_array_start;
-  for (i = 0; i < count; i++)
-    __preinit_array_start[i]();
+  for (i = 0; i < count; i++) __preinit_array_start[i]();
 
   // If you need to run the code in the .init section, please use
   // the startup files, since this requires the code in crti.o and crtn.o
@@ -161,8 +159,7 @@ inline void __attribute__((always_inline)) __run_init_array(void) {
   //_init(); // DO NOT ENABE THIS!
 
   count = __init_array_end - __init_array_start;
-  for (i = 0; i < count; i++)
-    __init_array_start[i]();
+  for (i = 0; i < count; i++) __init_array_start[i]();
 }
 
 // Run all the cleanup routines (mainly static destructors).
@@ -171,8 +168,7 @@ inline void __attribute__((always_inline)) __run_fini_array(void) {
   int i;
 
   count = __fini_array_end - __fini_array_start;
-  for (i = count; i > 0; i--)
-    __fini_array_start[i - 1]();
+  for (i = count; i > 0; i--) __fini_array_start[i - 1]();
 
   // If you need to run the code in the .fini section, please use
   // the startup files, since this requires the code in crti.o and crtn.o
@@ -187,18 +183,19 @@ inline void __attribute__((always_inline)) __run_fini_array(void) {
 
 #define BSS_GUARD_BAD_VALUE (0xCADEBABA)
 
-static uint32_t volatile __attribute__((section(".bss_begin"))) __bss_begin_guard;
+static uint32_t volatile __attribute__((section(".bss_begin")))
+__bss_begin_guard;
 static uint32_t volatile __attribute__((section(".bss_end"))) __bss_end_guard;
 
 #define DATA_GUARD_BAD_VALUE (0xCADEBABA)
 #define DATA_BEGIN_GUARD_VALUE (0x12345678)
 #define DATA_END_GUARD_VALUE (0x98765432)
 
-static uint32_t volatile __attribute__((section(".data_begin"))) __data_begin_guard =
-DATA_BEGIN_GUARD_VALUE;
+static uint32_t volatile __attribute__((section(".data_begin")))
+__data_begin_guard = DATA_BEGIN_GUARD_VALUE;
 
-static uint32_t volatile __attribute__((section(".data_end"))) __data_end_guard =
-DATA_END_GUARD_VALUE;
+static uint32_t volatile __attribute__((section(".data_end")))
+__data_end_guard = DATA_END_GUARD_VALUE;
 
 #endif  // defined(DEBUG) && (OS_INCLUDE_STARTUP_GUARD_CHECKS)
 
@@ -234,11 +231,11 @@ void __attribute__((section(".after_vectors"), noreturn, weak)) _start(void) {
 #else
 
   // Copy the data sections from flash to SRAM.
-  for (unsigned int* p = &__data_regions_array_start;
+  for (unsigned int *p = &__data_regions_array_start;
        p < &__data_regions_array_end;) {
-    unsigned int* from = (unsigned int*)(*p++);
-    unsigned int* region_begin = (unsigned int*)(*p++);
-    unsigned int* region_end = (unsigned int*)(*p++);
+    unsigned int *from = (unsigned int *)(*p++);
+    unsigned int *region_begin = (unsigned int *)(*p++);
+    unsigned int *region_end = (unsigned int *)(*p++);
 
     __initialize_data(from, region_begin, region_end);
   }
@@ -246,8 +243,8 @@ void __attribute__((section(".after_vectors"), noreturn, weak)) _start(void) {
 #endif
 
 #if defined(DEBUG) && (OS_INCLUDE_STARTUP_GUARD_CHECKS)
-  if ((__data_begin_guard != DATA_BEGIN_GUARD_VALUE)
-      || (__data_end_guard != DATA_END_GUARD_VALUE)) {
+  if ((__data_begin_guard != DATA_BEGIN_GUARD_VALUE) ||
+      (__data_end_guard != DATA_END_GUARD_VALUE)) {
     for (;;)
       ;
   }
@@ -264,10 +261,10 @@ void __attribute__((section(".after_vectors"), noreturn, weak)) _start(void) {
 #else
 
   // Zero fill all bss segments
-  for (unsigned int* p = &__bss_regions_array_start;
+  for (unsigned int *p = &__bss_regions_array_start;
        p < &__bss_regions_array_end;) {
-    unsigned int* region_begin = (unsigned int*)(*p++);
-    unsigned int* region_end = (unsigned int*)(*p++);
+    unsigned int *region_begin = (unsigned int *)(*p++);
+    unsigned int *region_end = (unsigned int *)(*p++);
     __initialize_bss(region_begin, region_end);
   }
 #endif

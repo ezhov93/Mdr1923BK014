@@ -1,9 +1,9 @@
 /*
  * GDB stub.
- * 
+ *
  * Migarte form linux to rt-thread by Wzyy2
  * Original edition : KGDB stub
- * 
+ *
  * File      : gdb_stub.c
  * This file is part of RT-Thread RTOS
  * COPYRIGHT (C) 2006, RT-Thread Develop Team
@@ -17,7 +17,7 @@
  * 2014-07-04     Wzyy2      first version
  *
  * This file incorporates work covered by the following copyright and
- * permission notice: 
+ * permission notice:
  *
  * KGDB stub.
  *
@@ -49,8 +49,9 @@
  */
 //#include <rtthread.h>
 //#include <rthw.h>
-#include <string.h>
 #include "gdb_stub.h"
+
+#include <string.h>
 
 struct gdb_state {
   int signo;
@@ -67,41 +68,44 @@ int gdb_connected;
  * added and removed by gdb.
  */
 #if RT_GDB_HAVE_SWBP
-static struct gdb_bkpt gdb_break[GDB_MAX_BREAKPOINTS] = { { BP_UNDEFINED }, {
-    BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, {
-    BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, {
-    BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, {
-    BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }, {
-    BP_UNDEFINED }, { BP_UNDEFINED }, { BP_UNDEFINED }
+static struct gdb_bkpt gdb_break[GDB_MAX_BREAKPOINTS] = {
+    {BP_UNDEFINED}, {BP_UNDEFINED}, {BP_UNDEFINED},
+    {BP_UNDEFINED}, {BP_UNDEFINED}, {BP_UNDEFINED},
+    {BP_UNDEFINED}, {BP_UNDEFINED}, {BP_UNDEFINED},
+    {BP_UNDEFINED}, {BP_UNDEFINED}, {BP_UNDEFINED},
+    {BP_UNDEFINED}, {BP_UNDEFINED}, {BP_UNDEFINED},
+    {BP_UNDEFINED}, {BP_UNDEFINED}, {BP_UNDEFINED},
+    {BP_UNDEFINED}, {BP_UNDEFINED}
 
 };
 #endif
 
 /* Storage for the registers, in GDB format. */
-static unsigned long gdb_regs[(NUMREGBYTES + sizeof(unsigned long) - 1)
-    / sizeof(unsigned long)];
+static unsigned long
+    gdb_regs[(NUMREGBYTES + sizeof(unsigned long) - 1) / sizeof(unsigned long)];
 
 char remcom_in_buffer[BUFMAX];
 char remcom_out_buffer[BUFMAX];
 
 static const char hexchars[] = "0123456789abcdef";
 
-//to call that there has been an error
-void *volatile gdb_mem_fault_handler = (void*) 0;
+// to call that there has been an error
+void *volatile gdb_mem_fault_handler = (void *)0;
 static long probe_kernel_write(void *dst, void *src, size_t size) {
   int i = 0;
-  char *dst_ptr = (char*) dst;
-  char *src_ptr = (char*) src;
+  char *dst_ptr = (char *)dst;
+  char *src_ptr = (char *)src;
 
-  //gdb_mem_fault_handler = &&err;
+  // gdb_mem_fault_handler = &&err;
 
   for (i = 0; i < size; i++) {
     *(dst_ptr++) = *(src_ptr++);
   }
 
-  gdb_mem_fault_handler = (void*) 0;
+  gdb_mem_fault_handler = (void *)0;
   return 0;
-  err: gdb_mem_fault_handler = (void*) 0;
+err:
+  gdb_mem_fault_handler = (void *)0;
   return -1;
 }
 
@@ -109,18 +113,13 @@ static long probe_kernel_write(void *dst, void *src, size_t size) {
  * GDB remote protocol parser:
  */
 static int hex(char ch) {
-  if ((ch >= 'a') && (ch <= 'f'))
-    return ch - 'a' + 10;
-  if ((ch >= '0') && (ch <= '9'))
-    return ch - '0';
-  if ((ch >= 'A') && (ch <= 'F'))
-    return ch - 'A' + 10;
+  if ((ch >= 'a') && (ch <= 'f')) return ch - 'a' + 10;
+  if ((ch >= '0') && (ch <= '9')) return ch - '0';
+  if ((ch >= 'A') && (ch <= 'F')) return ch - 'A' + 10;
   return -1;
 }
 
-static char tohex(char c) {
-  return hexchars[c & 15];
-}
+static char tohex(char c) { return hexchars[c & 15]; }
 
 /*
  * Copy the binary array pointed to by buf into mem.  Fix $, #, and
@@ -133,12 +132,10 @@ int gdb_ebin2mem(char *buf, char *mem, int count) {
 
   while (count-- > 0) {
     c = *buf++;
-    if (c == 0x7d)
-      c = *buf++ ^ 0x20;
+    if (c == 0x7d) c = *buf++ ^ 0x20;
 
     err = probe_kernel_write(mem, &c, 1);
-    if (err)
-      break;
+    if (err) break;
 
     mem++;
   }
@@ -174,7 +171,7 @@ int gdb_mem2hex(char *mem, char *buf, int count) {
   char *tmp = mem;
   char ch;
 
-  //gdb_mem_fault_handler = &&err;
+  // gdb_mem_fault_handler = &&err;
 
   while (count > 0) {
     ch = *(tmp++);
@@ -185,9 +182,10 @@ int gdb_mem2hex(char *mem, char *buf, int count) {
   }
   *buf = 0;
 
-  gdb_mem_fault_handler = (void*) 0;
+  gdb_mem_fault_handler = (void *)0;
   return 0;
-  err: gdb_mem_fault_handler = (void*) 0;
+err:
+  gdb_mem_fault_handler = (void *)0;
   return -1;
 }
 
@@ -208,16 +206,14 @@ int gdb_hex2long(char **ptr, unsigned long *long_val) {
   }
   while (**ptr) {
     hex_val = hex(**ptr);
-    if (hex_val < 0)
-      break;
+    if (hex_val < 0) break;
 
     *long_val = (*long_val << 4) | hex_val;
     num++;
     (*ptr)++;
   }
 
-  if (negate)
-    *long_val = -*long_val;
+  if (negate) *long_val = -*long_val;
 
   return num;
 }
@@ -229,22 +225,19 @@ static int write_mem_msg(int binary) {
   unsigned long length;
   int err;
 
-  if (gdb_hex2long(&ptr, &addr) > 0 && *(ptr++) == ','
-      && gdb_hex2long(&ptr, &length) > 0 && *(ptr++) == ':') {
+  if (gdb_hex2long(&ptr, &addr) > 0 && *(ptr++) == ',' &&
+      gdb_hex2long(&ptr, &length) > 0 && *(ptr++) == ':') {
 #ifdef GDB_DATA_ACCESS
-    //accesses to areas not backed can cause error
-    if (gdb_permit_data_access(addr, length))
-      return -1;
+    // accesses to areas not backed can cause error
+    if (gdb_permit_data_access(addr, length)) return -1;
 #endif
     if (binary)
-      err = gdb_ebin2mem(ptr, (char*) addr, length);
+      err = gdb_ebin2mem(ptr, (char *)addr, length);
     else
-      err = gdb_hex2mem(ptr, (char*) addr, length);
-    if (err)
-      return err;
+      err = gdb_hex2mem(ptr, (char *)addr, length);
+    if (err) return err;
 #ifdef RT_GDB_ICACHE
-        if (CACHE_FLUSH_IS_SAFE)
-            gdb_flush_icache_range(addr, addr + length);
+    if (CACHE_FLUSH_IS_SAFE) gdb_flush_icache_range(addr, addr + length);
 #endif
     return 0;
   }
@@ -283,8 +276,7 @@ static void put_packet(char *buffer) {
     ch = gdb_io_ops.read_char();
 
     /* If we get an ACK, we are done. */
-    if (ch == '+')
-      return;
+    if (ch == '+') return;
 
     /*
      * If we get the start of another packet, this means
@@ -294,8 +286,7 @@ static void put_packet(char *buffer) {
      */
     if (ch == '$') {
       gdb_io_ops.write_char('-');
-      if (gdb_io_ops.flush)
-        gdb_io_ops.flush();
+      if (gdb_io_ops.flush) gdb_io_ops.flush();
       return;
     }
   }
@@ -315,8 +306,7 @@ static void get_packet(char *buffer) {
      */
 
     gdb_led(1);
-    while (((gdb_io_ops.read_char())) != '$')
-      continue;
+    while (((gdb_io_ops.read_char())) != '$') continue;
     gdb_led(0);
     gdb_connected = 1;
     checksum = 0;
@@ -329,8 +319,7 @@ static void get_packet(char *buffer) {
      */
     while (count < (BUFMAX - 1)) {
       ch = gdb_io_ops.read_char();
-      if (ch == '#')
-        break;
+      if (ch == '#') break;
       checksum = checksum + ch;
       buffer[count] = ch;
       count = count + 1;
@@ -341,14 +330,12 @@ static void get_packet(char *buffer) {
       xmitcsum = hex(gdb_io_ops.read_char()) << 4;
       xmitcsum += hex(gdb_io_ops.read_char());
 
-      if (checksum != xmitcsum)
-        /* failed checksum */
+      if (checksum != xmitcsum) /* failed checksum */
         gdb_io_ops.write_char('-');
       else
         /* successful transfer */
         gdb_io_ops.write_char('+');
-      if (gdb_io_ops.flush)
-        gdb_io_ops.flush();
+      if (gdb_io_ops.flush) gdb_io_ops.flush();
     }
   } while (checksum != xmitcsum);
 }
@@ -365,16 +352,15 @@ static void error_packet(char *pkt, int error) {
 static int gdb_arch_set_breakpoint(unsigned long addr, char *saved_instr) {
   int err;
 
-  err = probe_kernel_write((void*) saved_instr, (void*) addr, BREAK_INSTR_SIZE);
-  if (err)
-    return err;
+  err = probe_kernel_write((void *)saved_instr, (void *)addr, BREAK_INSTR_SIZE);
+  if (err) return err;
 
-  return probe_kernel_write((char*) addr, (void*) arch_gdb_ops.gdb_bpt_instr,
-  BREAK_INSTR_SIZE);
+  return probe_kernel_write((char *)addr, (void *)arch_gdb_ops.gdb_bpt_instr,
+                            BREAK_INSTR_SIZE);
 }
 
 static int gdb_arch_remove_breakpoint(unsigned long addr, char *bundle) {
-  return probe_kernel_write((char*) addr, (void*) bundle, BREAK_INSTR_SIZE);
+  return probe_kernel_write((char *)addr, (void *)bundle, BREAK_INSTR_SIZE);
 }
 static int gdb_validate_break_address(unsigned long addr) {
   char tmp_variable[BREAK_INSTR_SIZE];
@@ -386,12 +372,11 @@ static int gdb_validate_break_address(unsigned long addr) {
    * found them.
    */
   err = gdb_arch_set_breakpoint(addr, tmp_variable);
-  if (err)
-    return err;
+  if (err) return err;
   err = gdb_arch_remove_breakpoint(addr, tmp_variable);
-  if (err)
-    qw = 1;
-  //rt_kprintf("GDB: Critical breakpoint error,memory destroyed at: %08x \n", addr);
+  if (err) qw = 1;
+  // rt_kprintf("GDB: Critical breakpoint error,memory destroyed at: %08x \n",
+  // addr);
   return err;
 }
 
@@ -400,11 +385,11 @@ static int gdb_validate_break_address(unsigned long addr) {
  * breakpoint:
  */
 static void gdb_flush_swbreak_addr(unsigned long addr) {
-//     if (!CACHE_FLUSH_IS_SAFE)
-//         return;
+  //     if (!CACHE_FLUSH_IS_SAFE)
+  //         return;
 
   /* Force flush instruction cache if it was outside the mm */
-  //gdb_flush_icache_range(addr, addr + BREAK_INSTR_SIZE);
+  // gdb_flush_icache_range(addr, addr + BREAK_INSTR_SIZE);
 }
 
 /*
@@ -416,15 +401,13 @@ static int gdb_activate_sw_breakpoints(void) {
   int i;
 
   for (i = 0; i < GDB_MAX_BREAKPOINTS; i++) {
-    if (gdb_break[i].state != BP_SET)
-      continue;
+    if (gdb_break[i].state != BP_SET) continue;
 
     addr = gdb_break[i].bpt_addr;
-    error = gdb_arch_set_breakpoint(addr, (char*) (gdb_break[i].saved_instr));
-    if (error)
-      return error;
+    error = gdb_arch_set_breakpoint(addr, (char *)(gdb_break[i].saved_instr));
+    if (error) return error;
 
-    //gdb_flush_swbreak_addr(addr);
+    // gdb_flush_swbreak_addr(addr);
     gdb_break[i].state = BP_ACTIVE;
   }
   return 0;
@@ -435,8 +418,7 @@ int gdb_set_sw_break(unsigned long addr) {
   int breakno = -1;
   int i;
 
-  if (err)
-    return err;
+  if (err) return err;
 
   for (i = 0; i < GDB_MAX_BREAKPOINTS; i++) {
     if ((gdb_break[i].state == BP_SET) && (gdb_break[i].bpt_addr == addr))
@@ -458,8 +440,7 @@ int gdb_set_sw_break(unsigned long addr) {
     }
   }
 
-  if (breakno == -1)
-    return -1;
+  if (breakno == -1) return -1;
 
   gdb_break[breakno].state = BP_SET;
   gdb_break[breakno].type = BP_BREAKPOINT;
@@ -474,13 +455,11 @@ static int gdb_deactivate_sw_breakpoints(void) {
   int i;
 
   for (i = 0; i < GDB_MAX_BREAKPOINTS; i++) {
-    if (gdb_break[i].state != BP_ACTIVE)
-      continue;
+    if (gdb_break[i].state != BP_ACTIVE) continue;
     addr = gdb_break[i].bpt_addr;
-    error = gdb_arch_remove_breakpoint(addr,
-        (char*) (gdb_break[i].saved_instr));
-    if (error)
-      return error;
+    error =
+        gdb_arch_remove_breakpoint(addr, (char *)(gdb_break[i].saved_instr));
+    if (error) return error;
 
     gdb_flush_swbreak_addr(addr);
     gdb_break[i].state = BP_SET;
@@ -520,59 +499,58 @@ static int remove_all_break() {
 
   /* Clear memory breakpoints. */
   for (i = 0; i < GDB_MAX_BREAKPOINTS; i++) {
-    if (gdb_break[i].state != BP_ACTIVE)
-      goto setundefined;
+    if (gdb_break[i].state != BP_ACTIVE) goto setundefined;
     addr = gdb_break[i].bpt_addr;
-    error = gdb_arch_remove_breakpoint(addr, (char*) gdb_break[i].saved_instr);
-    if (error)
-      qw = 1;
-    //rt_kprintf("GDB: breakpoint remove failed: %lx\n",
-    //      addr);
-    setundefined: gdb_break[i].state = BP_UNDEFINED;
+    error = gdb_arch_remove_breakpoint(addr, (char *)gdb_break[i].saved_instr);
+    if (error) qw = 1;
+  // rt_kprintf("GDB: breakpoint remove failed: %lx\n",
+  //      addr);
+  setundefined:
+    gdb_break[i].state = BP_UNDEFINED;
   }
 #endif
 
 #if RT_GDB_HAVE_HWBP
-    /* Clear hardware breakpoints. */
-    arch_gdb_ops.remove_all_hw_break();
+  /* Clear hardware breakpoints. */
+  arch_gdb_ops.remove_all_hw_break();
 #endif
 
   return 0;
 }
 
 static void gdb_msg_write(const char *s, int len) {
-    static char gdbmsgbuf[128 + 1];
-    char *bufptr;
-    int wcount;
-    int i;
+  static char gdbmsgbuf[128 + 1];
+  char *bufptr;
+  int wcount;
+  int i;
 
-    /* 'O'utput */
-    gdbmsgbuf[0] = 'O';
+  /* 'O'utput */
+  gdbmsgbuf[0] = 'O';
 
-    /* Fill and send buffers... */
-    while (len > 0) {
-        bufptr = gdbmsgbuf + 1;
+  /* Fill and send buffers... */
+  while (len > 0) {
+    bufptr = gdbmsgbuf + 1;
 
-        /* Calculate how many this time */
-        if ((len << 1) > (BUFMAX - 2))
-            wcount = (BUFMAX - 2) >> 1;
-        else
-            wcount = len;
+    /* Calculate how many this time */
+    if ((len << 1) > (BUFMAX - 2))
+      wcount = (BUFMAX - 2) >> 1;
+    else
+      wcount = len;
 
-        /* Pack in hex chars */
-        for (i = 0; i < wcount; i++) {
-            *(bufptr++) = tohex((s[i] >> 4) & 0xf);
-            *(bufptr++) = tohex(s[i] & 0xf);
-        }
-        *bufptr = '\0';
-
-        /* Move up */
-        s += wcount;
-        len -= wcount;
-
-        /* Write packet */
-        put_packet(gdbmsgbuf);
+    /* Pack in hex chars */
+    for (i = 0; i < wcount; i++) {
+      *(bufptr++) = tohex((s[i] >> 4) & 0xf);
+      *(bufptr++) = tohex(s[i] & 0xf);
     }
+    *bufptr = '\0';
+
+    /* Move up */
+    s += wcount;
+    len -= wcount;
+
+    /* Write packet */
+    put_packet(gdbmsgbuf);
+  }
 }
 
 /*
@@ -617,16 +595,14 @@ static void gdb_cmd_memread(struct gdb_state *gs) {
   unsigned long addr;
   int err;
 
-  if (gdb_hex2long(&ptr, &addr) > 0 && *ptr++ == ','
-      && gdb_hex2long(&ptr, &length) > 0) {
+  if (gdb_hex2long(&ptr, &addr) > 0 && *ptr++ == ',' &&
+      gdb_hex2long(&ptr, &length) > 0) {
 #ifdef GDB_DATA_ACCESS
-    //accesses to areas not backed can cause error
-    if (gdb_permit_data_access(addr, length))
-      return;
+    // accesses to areas not backed can cause error
+    if (gdb_permit_data_access(addr, length)) return;
 #endif
-    err = gdb_mem2hex((char*) addr, remcom_out_buffer, length);
-    if (err)
-      error_packet(remcom_out_buffer, err);
+    err = gdb_mem2hex((char *)addr, remcom_out_buffer, length);
+    if (err) error_packet(remcom_out_buffer, err);
   } else {
     error_packet(remcom_out_buffer, -1);
   }
@@ -661,7 +637,7 @@ static void gdb_cmd_query(struct gdb_state *gs) {
 static void gdb_cmd_getregs(struct gdb_state *gs) {
   char len = sizeof(long);
 
-  gdb_get_register((unsigned long*) gdb_regs);
+  gdb_get_register((unsigned long *)gdb_regs);
 
   /*get one registers*/
   if (remcom_in_buffer[0] == 'p') {
@@ -669,7 +645,7 @@ static void gdb_cmd_getregs(struct gdb_state *gs) {
     unsigned long regno = 0;
 
     if (gdb_hex2long(&p, &regno)) {
-      gdb_mem2hex(((char*) gdb_regs) + regno * len, remcom_out_buffer, len);
+      gdb_mem2hex(((char *)gdb_regs) + regno * len, remcom_out_buffer, len);
       return;
     } else {
       strcpy(remcom_out_buffer, "INVALID");
@@ -677,7 +653,7 @@ static void gdb_cmd_getregs(struct gdb_state *gs) {
     }
   }
 
-  gdb_mem2hex((char*) gdb_regs, remcom_out_buffer, NUMREGBYTES);
+  gdb_mem2hex((char *)gdb_regs, remcom_out_buffer, NUMREGBYTES);
 }
 
 /* Handle the 'G' or 'P' set registers request */
@@ -690,8 +666,8 @@ static void gdb_cmd_setregs(struct gdb_state *gs) {
     unsigned long regno = 0;
 
     if (gdb_hex2long(&p, &regno) && *p++ == '=') {
-      gdb_get_register((unsigned long*) gdb_regs);
-      gdb_hex2mem(p, ((char*) gdb_regs) + regno * len, len);
+      gdb_get_register((unsigned long *)gdb_regs);
+      gdb_hex2mem(p, ((char *)gdb_regs) + regno * len, len);
       gdb_put_register(gdb_regs);
       strcpy(remcom_out_buffer, "OK");
     }
@@ -699,7 +675,7 @@ static void gdb_cmd_setregs(struct gdb_state *gs) {
     return;
   }
 
-  gdb_hex2mem(&remcom_in_buffer[1], (char*) gdb_regs, NUMREGBYTES);
+  gdb_hex2mem(&remcom_in_buffer[1], (char *)gdb_regs, NUMREGBYTES);
 
   gdb_put_register(gdb_regs);
   strcpy(remcom_out_buffer, "OK");
@@ -743,8 +719,7 @@ static void gdb_cmd_break(struct gdb_state *gs) {
 
   if (arch_gdb_ops.set_hw_breakpoint && *bpt_type >= '1') {
     /* Unsupported */
-    if (*bpt_type > '4')
-      return;
+    if (*bpt_type > '4') return;
   }
   /*
    * Test if this is a hardware breakpoint, and
@@ -772,18 +747,18 @@ static void gdb_cmd_break(struct gdb_state *gs) {
   else if (remcom_in_buffer[0] == 'z' && *bpt_type == '0')
     error = gdb_remove_sw_break(addr);
 #else
-    if (remcom_in_buffer[0] == 'Z' && *bpt_type == '0')
-        error = arch_gdb_ops.set_hw_breakpoint(addr,
-                (int)length, BP_HARDWARE_BREAKPOINT);
-    else if (remcom_in_buffer[0] == 'z' && *bpt_type == '0')
-        error = arch_gdb_ops.remove_hw_breakpoint(addr,
-                (int) length, BP_HARDWARE_BREAKPOINT);
+  if (remcom_in_buffer[0] == 'Z' && *bpt_type == '0')
+    error = arch_gdb_ops.set_hw_breakpoint(addr, (int)length,
+                                           BP_HARDWARE_BREAKPOINT);
+  else if (remcom_in_buffer[0] == 'z' && *bpt_type == '0')
+    error = arch_gdb_ops.remove_hw_breakpoint(addr, (int)length,
+                                              BP_HARDWARE_BREAKPOINT);
 #endif
   else if (remcom_in_buffer[0] == 'Z')
-    error = arch_gdb_ops.set_hw_breakpoint(addr, (int) length, *bpt_type - '0');
+    error = arch_gdb_ops.set_hw_breakpoint(addr, (int)length, *bpt_type - '0');
   else if (remcom_in_buffer[0] == 'z')
-    error = arch_gdb_ops.remove_hw_breakpoint(addr, (int) length,
-        *bpt_type - '0');
+    error =
+        arch_gdb_ops.remove_hw_breakpoint(addr, (int)length, *bpt_type - '0');
 
   if (error == 0)
     strcpy(remcom_out_buffer, "OK");
@@ -797,12 +772,10 @@ static int gdb_cmd_exception_pass(struct gdb_state *gs) {
    * C15 == detach gdb, pass exception
    */
   if (remcom_in_buffer[1] == '0' && remcom_in_buffer[2] == '9') {
-
     gs->pass_exception = 1;
     remcom_in_buffer[0] = 'c';
 
   } else if (remcom_in_buffer[1] == '1' && remcom_in_buffer[2] == '5') {
-
     gs->pass_exception = 1;
     remcom_in_buffer[0] = 'D';
     remove_all_break();
@@ -818,7 +791,8 @@ static int gdb_cmd_exception_pass(struct gdb_state *gs) {
   return -1;
 }
 
-/*more about packet in https://www.sourceware.org/gdb/current/onlinedocs/gdb/Packets.html#Packets*/
+/*more about packet in
+ * https://www.sourceware.org/gdb/current/onlinedocs/gdb/Packets.html#Packets*/
 static int process_packet(char *pkt) {
   int status = 0;
   int tmp;
@@ -827,61 +801,60 @@ static int process_packet(char *pkt) {
 
   remcom_out_buffer[0] = 0;
   switch (pkt[0]) {
-  case '?':/* gdbserial status */
-    gdb_cmd_status(&gs);
-    break;
-  case 'q':/* query command */
-    gdb_cmd_query(&gs);
-    break;
-  case 'p': /* return the value of  a single CPU register */
-  case 'g': /* return the value of the CPU registers */
-    gdb_cmd_getregs(&gs);
-    break;
-  case 'P': /* set the value of a single CPU registers - return OK */
-  case 'G': /* set the value of the CPU registers - return OK */
-    gdb_cmd_setregs(&gs);
-    break;
-  case 'm': /* mAA..AA,LLLL  Read LLLL bytes at address AA..AA */
-    gdb_cmd_memread(&gs);
-    break;
-  case 'X':/* XAA..AA,LLLL: Write LLLL escaped binary bytes at address AA.AA*/
-    gdb_cmd_binwrite(&gs);
-    break;
-  case 'M':/* MAA..AA,LLLL: Write LLLL bytes at address AA.AA return OK */
-    gdb_cmd_memwrite(&gs);
-    break;
-  case 'D': /* Debugger detach */
-  case 'k': /* Debugger detach via kill */
-    gdb_cmd_detachkill(&gs);
-    break;
-  case 'C':/* Exception passing */
-    tmp = gdb_cmd_exception_pass(&gs);
-    if (tmp > 0)
-      process_packet(remcom_in_buffer);
-    if (tmp == 0)
+    case '?': /* gdbserial status */
+      gdb_cmd_status(&gs);
       break;
-  case 'z':/* Break point remove */
-  case 'Z':/* Break point set */
-    gdb_cmd_break(&gs);
-    break;
-  case 'H':/* task related */
-    break;
-  case 'T':/* Query thread status */
-    break;
-  case 'b': /* bBB...  Set baud rate to BB... */
-    break;
-  case 's': /* sAA..AA    step form address AA..AA (optional) */
-  case 'c': /* cAA..AA    Continue at address AA..AA (optional) */
+    case 'q': /* query command */
+      gdb_cmd_query(&gs);
+      break;
+    case 'p': /* return the value of  a single CPU register */
+    case 'g': /* return the value of the CPU registers */
+      gdb_cmd_getregs(&gs);
+      break;
+    case 'P': /* set the value of a single CPU registers - return OK */
+    case 'G': /* set the value of the CPU registers - return OK */
+      gdb_cmd_setregs(&gs);
+      break;
+    case 'm': /* mAA..AA,LLLL  Read LLLL bytes at address AA..AA */
+      gdb_cmd_memread(&gs);
+      break;
+    case 'X': /* XAA..AA,LLLL: Write LLLL escaped binary bytes at address
+                 AA.AA*/
+      gdb_cmd_binwrite(&gs);
+      break;
+    case 'M': /* MAA..AA,LLLL: Write LLLL bytes at address AA.AA return OK */
+      gdb_cmd_memwrite(&gs);
+      break;
+    case 'D': /* Debugger detach */
+    case 'k': /* Debugger detach via kill */
+      gdb_cmd_detachkill(&gs);
+      break;
+    case 'C': /* Exception passing */
+      tmp = gdb_cmd_exception_pass(&gs);
+      if (tmp > 0) process_packet(remcom_in_buffer);
+      if (tmp == 0) break;
+    case 'z': /* Break point remove */
+    case 'Z': /* Break point set */
+      gdb_cmd_break(&gs);
+      break;
+    case 'H': /* task related */
+      break;
+    case 'T': /* Query thread status */
+      break;
+    case 'b': /* bBB...  Set baud rate to BB... */
+      break;
+    case 's': /* sAA..AA    step form address AA..AA (optional) */
+    case 'c': /* cAA..AA    Continue at address AA..AA (optional) */
 #if RT_GDB_HAVE_SWBP
-    gdb_activate_sw_breakpoints();
+      gdb_activate_sw_breakpoints();
 #endif
-    break;
+      break;
   }
 
-  if (!status)
-    return -1;
+  if (!status) return -1;
 
-  exit: put_packet(remcom_out_buffer);
+exit:
+  put_packet(remcom_out_buffer);
   return 0;
 }
 
@@ -907,10 +880,10 @@ int gdb_handle_exception(int signo, void *regs) {
 
   gs.signo = signo;
 
-//     if (!gdb_io_ready(1)) {
-//         error = 1;
-//         return error; /* No I/O connection, so resume the system */
-//     }
+  //     if (!gdb_io_ready(1)) {
+  //         error = 1;
+  //         return error; /* No I/O connection, so resume the system */
+  //     }
 
 #if RT_GDB_HAVE_SWBP
   gdb_deactivate_sw_breakpoints();
@@ -946,9 +919,7 @@ int gdb_handle_exception(int signo, void *regs) {
 void gdb_console_write(const char *s, unsigned count) {
   /* If we're debugging, or GDB has not connected, don't try
    * and print. */
-  if (!gdb_connected)
-    return;
+  if (!gdb_connected) return;
 
   gdb_msg_write(s, count);
 }
-

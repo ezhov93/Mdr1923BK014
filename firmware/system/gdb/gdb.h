@@ -9,24 +9,19 @@
 #define GDB_GDB_H_
 
 #include <stdio.h>
+
 #include "1923VK014.h"
 
 class Gdb {
  public:
-  enum {
-    HEX, DEC
-  };
+  enum { HEX, DEC };
 
   Gdb() = default;
   static void begin();
 
-  static void print(char ch) {
-    fprintf(stderr, "%c", ch);
-  }
+  static void print(char ch) { fprintf(stderr, "%c", ch); }
 
-  static void print(const char *str) {
-    fprintf(stderr, str);
-  }
+  static void print(const char *str) { fprintf(stderr, str); }
 
   static void print(uint8_t n, int base = DEC) {
     print(static_cast<unsigned int>(n), base);
@@ -54,9 +49,7 @@ class Gdb {
     fprintf(stderr, format, n);
   }
 
-  static void println() {
-    fprintf(stderr, "\r\n");
-  }
+  static void println() { fprintf(stderr, "\r\n"); }
 
   static void println(char ch) {
     print(ch);
@@ -97,7 +90,6 @@ class Gdb {
     print(n, base);
     println();
   }
-
 };
 
 #endif /* GDB_GDB_H_ */

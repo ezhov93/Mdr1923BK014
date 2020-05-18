@@ -1,16 +1,15 @@
 #include "Pin.h"
+
 #include "1923VK014.h"
 
 void Pin::init(const Mode mode, const Function function) const {
-  enum Power {
-    PowerDiverOff, Power300ns, Power100ns, Power10ns
-  };
+  enum Power { PowerDiverOff, Power300ns, Power100ns, Power10ns };
 
   // Clock enable
   const uint portClkEnable = (1 << (13 + ((_portAddr & 0xFFFF) >> 12)));
   CLK_CNTR->PER0_CLK |= portClkEnable;
 
-  PortControl *port = (PortControl*) (_portAddr);
+  PortControl *port = (PortControl *)(_portAddr);
   port->KEY = _KEY_;
   // Function
   const uint cntOfFunction = _number / 8;
@@ -40,13 +39,9 @@ void Pin::init(const Mode mode, const Function function) const {
 }
 
 bool Pin::read() const {
-  return ((PortControl*) (_portAddr))->RXTX & numberPos();
+  return ((PortControl *)(_portAddr))->RXTX & numberPos();
 }
 
-void Pin::set() const {
-  ((PortControl*) (_portAddr))->SRXTX = numberPos();
-}
+void Pin::set() const { ((PortControl *)(_portAddr))->SRXTX = numberPos(); }
 
-void Pin::reset() const {
-  ((PortControl*) (_portAddr))->CRXTX = numberPos();
-}
+void Pin::reset() const { ((PortControl *)(_portAddr))->CRXTX = numberPos(); }

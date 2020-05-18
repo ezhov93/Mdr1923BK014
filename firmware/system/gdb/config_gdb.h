@@ -13,9 +13,8 @@ void StartGDB(void);
 void gdb_bp(void);
 void gdb_led(int);
 
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif	// __CONFIG_GDP_H
+#endif  // __CONFIG_GDP_H

@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #if !defined(DEBUG)
 extern void __attribute__((noreturn)) __reset_hardware(void);
@@ -22,8 +22,7 @@ void __attribute__((weak)) _exit(int code __attribute__((unused))) {
     ;
 }
 
-void __attribute__((weak,noreturn)) abort(void) {
+void __attribute__((weak, noreturn)) abort(void) {
   fprintf(stderr, "abort(), exiting...");
   _exit(1);
 }
-

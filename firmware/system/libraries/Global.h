@@ -2,7 +2,7 @@
 #define SYSTEM_LIBRARIES_GLOBAL_H_
 
 // Macroses
-#define forever for(;;)
+#define forever for (;;)
 #define UNUSED(arg) (void)(arg)
 
 // Typedefs
@@ -11,6 +11,5 @@ typedef unsigned char uchar;
 typedef unsigned int uint;
 typedef unsigned long ulong;
 typedef unsigned short ushort;
-
 
 #endif /* SYSTEM_LIBRARIES_GLOBAL_H_ */

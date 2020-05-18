@@ -1,86 +1,71 @@
 #ifndef SYSTEM_LIBRARIES_RING_H_
 #define SYSTEM_LIBRARIES_RING_H_
 
-template<typename T = unsigned char, int SIZE>
+template <typename T = unsigned char, int Size = 64>
 class Ring {
  public:
-  constexpr Ring() {
-    _head = 0;
-    _tail = 0;
-  }
+  constexpr Ring() : _head(0), _tail(0) {}
 
   ~Ring() = default;
 
   bool isFull() const {
-    return ((_tail + 1) == _head) || ((_tail == SIZE) && (_head == 0));
+    return ((_tail + 1) == _head) || ((_tail == Size) && (_head == 0));
   }
 
-  bool isEmpty() const {
-    return _head == _tail;
-  }
+  bool isEmpty() const { return _head == _tail; }
 
-  void push(const T data) {
-    push(data, 1);
-  }
+  void push(const T data) { push(data, 1); }
 
-  void push(const T &data, int size) {
+  void push(const T *data, int size) {
     for (int cnt = 0; cnt < size; ++cnt) {
       _data[_tail] = data[cnt];
-      _tail = (++_tail == SIZE) ? 0 : _tail;
-      if (isFull())
-        return;
+      _tail = (++_tail == Size) ? 0 : _tail;
+      if (isFull()) return;
     }
   }
 
-  T pop() {
+  const T pop() {
     T data;
     pop(data, 1);
     return data;
   }
 
-  void pop(const T &data, int size) {
+  void pop(T *data, int size) {
     for (int cnt = 0; cnt < size; ++cnt) {
-      if (isEmpty())
-        return;
+      if (isEmpty()) return;
       data[cnt] = _data[_head];
-      _head = (++_head == SIZE) ? 0 : _head;
+      _head = (++_head == Size) ? 0 : _head;
     }
   }
 
-  T peek() {
+  const T peek() {
     T data;
-    peak(data, 1);
+    peek(&data, 1);
     return data;
   }
 
-  void peek(T &data, int size) {
+  void peek(T *data, int size) {
     const int head = _head;
     pop(data, size);
     _head = head;
   }
 
-  void clear() {
-    _head = _tail;
-  }
+  void clear() { _head = _tail; }
 
-  int size() const {
-    return SIZE;
-  }
+  int size() const { return Size; }
 
   int count() const {
     int cnt = _tail - _head;
     if (cnt < 0)
-      return (SIZE-1) - _head + _tail;
+      return (Size - 1) - _head + _tail;
     else
       return cnt;
   }
 
-  void* data_ptr() const {
-    return reinterpret_cast<void*>(_data);
-  }
+  const void *data_ptr() const { return reinterpret_cast<void *>(_data); }
 
  private:
-  unsigned char _data[SIZE];
+  T _data[Size];
   volatile int _tail;
   volatile int _head;
 };

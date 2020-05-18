@@ -1,12 +1,12 @@
 /*
- * This provides the functions that GDB needs to share between 
+ * This provides the functions that GDB needs to share between
  * different portions.
  *
  * GDB stub.
- * 
+ *
  * Migarte form linux to rt-thread by Wzyy2
  * Original edition : KGDB stub
- * 
+ *
  * File      : gdb_stub.h
  * This file is part of RT-Thread RTOS
  * COPYRIGHT (C) 2006, RT-Thread Develop Team
@@ -23,31 +23,32 @@
 #define __GDB_STUB_H__
 
 #include <arch_gdb.h>
+
 #include "config_gdb.h"
 
 #ifndef RT_GDB_MAX_BREAKPOINTS
 #define GDB_MAX_BREAKPOINTS 20
 #else
-    #define GDB_MAX_BREAKPOINTS  RT_GDB_MAX_BREAKPOINTS
+#define GDB_MAX_BREAKPOINTS RT_GDB_MAX_BREAKPOINTS
 #endif
 
 // Signal definitions
-#define SIGHUP  1       /* hangup */
-#define SIGINT  2       /* interrupt */   //irq or fiq
-#define SIGQUIT 3       /* quit */
-#define SIGILL  4       /* illegal instruction (not reset when caught) */
-#define SIGTRAP 5       /* trace trap (not reset when caught) */
-#define SIGIOT  6       /* IOT instruction */
-#define SIGABRT 6       /* used by abort, replace SIGIOT in the future */
-#define SIGEMT  7       /* EMT instruction */
-#define SIGFPE  8       /* floating point exception */
-#define SIGKILL 9       /* kill (cannot be caught or ignored) */
-#define SIGBUS  10      /* bus error */  //abort or reserved
-#define SIGSEGV 11      /* segmentation violation */
-#define SIGSYS  12      /* bad argument to system call */
-#define SIGPIPE 13      /* write on a pipe with no one to read it */
-#define SIGALRM 14      /* alarm clock */
-#define SIGTERM 15      /* software termination signal from kill */
+#define SIGHUP 1                  /* hangup */
+#define SIGINT 2 /* interrupt */  // irq or fiq
+#define SIGQUIT 3                 /* quit */
+#define SIGILL 4  /* illegal instruction (not reset when caught) */
+#define SIGTRAP 5 /* trace trap (not reset when caught) */
+#define SIGIOT 6  /* IOT instruction */
+#define SIGABRT 6 /* used by abort, replace SIGIOT in the future */
+#define SIGEMT 7  /* EMT instruction */
+#define SIGFPE 8  /* floating point exception */
+#define SIGKILL 9 /* kill (cannot be caught or ignored) */
+#define SIGBUS 10 /* bus error */  // abort or reserved
+#define SIGSEGV 11                 /* segmentation violation */
+#define SIGSYS 12                  /* bad argument to system call */
+#define SIGPIPE 13                 /* write on a pipe with no one to read it */
+#define SIGALRM 14                 /* alarm clock */
+#define SIGTERM 15                 /* software termination signal from kill */
 
 enum gdb_bptype {
   BP_BREAKPOINT = 0,
@@ -58,9 +59,7 @@ enum gdb_bptype {
   BP_POKE_BREAKPOINT,
 };
 
-enum gdb_bpstate {
-  BP_UNDEFINED = 0, BP_REMOVED, BP_SET, BP_ACTIVE
-};
+enum gdb_bpstate { BP_UNDEFINED = 0, BP_REMOVED, BP_SET, BP_ACTIVE };
 
 struct gdb_bkpt {
   unsigned long bpt_addr;
@@ -121,7 +120,7 @@ int gdb_handle_exception(int signo, void *regs);
 
 /* hal */
 extern struct gdb_io gdb_io_ops;
-//extern rt_device_t gdb_dev;
+// extern rt_device_t gdb_dev;
 void gdb_start();
 void gdb_set_device(const char *device_name);
 void gdb_breakpointt();
