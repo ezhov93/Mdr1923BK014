@@ -1,32 +1,28 @@
 #ifndef LED_H
 #define LED_H
 
-#include "1923VK014.h"
+#include "Pin.h"
 
 class Led {
  public:
-  Led() {}
-  ~Led() {}
+  constexpr explicit Led(const Pin &pin) : _pin(pin) {}
+  ~Led() = default;
 
-  void init() {
-    CLK_CNTR->PER0_CLK |= 1 << 15;  // Enable clock of PortC
-    PORTC->KEY = _KEY_;
+  void init() const { _pin.init(Pin::Output); }
+  void on() const { _pin.reset(); }
+  void off() const { _pin.reset(); }
 
-    PORTC->CFUNC[0] = 0xFFFFFFFF;
-    PORTC->CFUNC[1] = 0xFFFFFFFF;
-    PORTC->CFUNC[2] = 0xFFFFFFFF;
-    PORTC->CFUNC[3] = 0xFFFFFFFF;
-
-    PORTC->SOE = (0xFF << 0);
-    PORTC->SANALOG = (0xFF << 0);
-    PORTC->SPWR[0] = 0x5555;
-
-    PORTC->RXTX = 0;
-  }
-
-  void on(int num) { PORTC->RXTX |= (1 << num); }
-
-  void off(int num) { PORTC->RXTX &= ~(1 << num); }
+ private:
+  Pin &_pin;
 };
+
+static const Led Led0(PC0);
+static const Led Led1(PC1);
+static const Led Led2(PC2);
+static const Led Led3(PC3);
+static const Led Led4(PC4);
+static const Led Led5(PC5);
+static const Led Led6(PC6);
+static const Led Led7(PC7);
 
 #endif  // LED_H
