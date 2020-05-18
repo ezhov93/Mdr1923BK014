@@ -3,12 +3,13 @@
 
 #include <libraries/StreamInterface.h>
 
+#include "Pin.h"
 #include "libraries/Global.h"
 #include "libraries/Ring.h"
 
 // TODO: pins and methods
 
-class Serial : public StreamInterface {
+class SerialAbstract : public StreamInterface {
  public:
   enum DataBits { Data5 = 0x00, Data6 = 0x20, Data7 = 0x40, Data8 = 0x60 };
   enum Parity {
@@ -19,33 +20,36 @@ class Serial : public StreamInterface {
     SpaceParity = 0x86
   };
   enum StopBits { OneStop = 0x00, TwoStop = 0x08 };
-  enum Event { TransmittedData, ReceivedData };
 
-  Serial() = default;
+  const struct InitArgs {
+    const Pin& rx;
+    const Pin& tx;
+    const uint base;
+    const func_ptr handler;
+  };
+
+  Serial(const InitArgs& args) {}
   ~Serial() = default;
-  void begin();
-  void begin(int baudrate);
-  void end();
-  void setBaudRate(int baudrate);
-  int baudrate() const;
-  void setDataBits(DataBits dataBits);
-  void setParity(Parity patity);
-  void setStopBits(StopBits stopBits);
-  DataBits dataBits() const;
-  Parity parity() const;
-  StopBits stopBits() const;
-  virtual int available(void);
-  virtual int peek(void);
-  virtual int read(void);
-  virtual void flush(void);
-  virtual int write(unsigned char ch);
-  virtual int write(const void* buf, int len);
-  int write(unsigned long n) { return write(static_cast<unsigned char>(n)); }
-  int write(long n) { return write(static_cast<unsigned char>(n)); }
-  int write(unsigned int n) { return write(static_cast<unsigned char>(n)); }
-  int write(int n) { return write(static_cast<unsigned char>(n)); }
+  void init();
+  void init(const int baudrate);
+  void setBaudRate(const int baudrate) { _baudRate = baudrate; }
+  int baudrate() const { return _baudRate; }
+  void setDataBits(const DataBits dataBits) { _dataBits = dataBits; }
+  const DataBits dataBits() const { return _dataBits; }
+  void setParity(const Parity patity) { _parity = parity; }
+  const Parity parity() const { return _parity; }
+  void setStopBits(const StopBits stopBits) { _stopBits = stopBits; }
+  const StopBits stopBits() const { return _stopBits; }
+  virtual int available(void) final { return _ring.available(); }
+  virtual int peek(void) final { return _ring.peek(); }
+  virtual int read(void) final { return _ring.pop(); }
+  virtual void flush() final {}
+  virtual int write(unsigned char ch) final;
+  virtual int write(const void* buf, int len) final;
 
  private:
+  const Pin& _rx;
+  const Pin& _tx;
   const uint _base;
   const uint _irq;
   Ring<uchar, 64> _ring;
