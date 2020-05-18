@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defenition.h"
+#include "Global.h"
 
 typedef struct {
   __IO uint32_t KEY;

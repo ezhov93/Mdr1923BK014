@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defenition.h"
+#include "Global.h"
 
 // Ports
 typedef struct {

@@ -1,12 +1,13 @@
-#include <iostream>
-#include "1923VK014/1923VK014.h"
-#include "pin.h"
+#include <stdio.h>
 
-static const Pin pin(PORTA_BASE, 7);
+#include "TestPin.h"
 
-int main() {
-  pin.init(Pin::Output);
-  pin.set();
+TestPin test;
+
+int main(void) {
+  test.exec();
+
+  forever { test.update(); }
+
   return 0;
-  std::cout << 7 % 16;
 }
