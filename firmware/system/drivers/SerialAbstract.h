@@ -1,5 +1,5 @@
-#ifndef SERIALABSTRACT_H
-#define SERIALABSTRACT_H
+#ifndef SERIAL_H
+#define SERIAL_H
 
 #include <libraries/StreamInterface.h>
 
@@ -8,7 +8,7 @@
 
 // TODO: pins and methods
 
-class SerialAbstract : public StreamInterface {
+class Serial : public StreamInterface {
  public:
   enum DataBits { Data5 = 0x00, Data6 = 0x20, Data7 = 0x40, Data8 = 0x60 };
   enum Parity {
@@ -21,7 +21,8 @@ class SerialAbstract : public StreamInterface {
   enum StopBits { OneStop = 0x00, TwoStop = 0x08 };
   enum Event { TransmittedData, ReceivedData };
 
-  ~SerialAbstract() = default;
+  Serial() = default;
+  ~Serial() = default;
   void begin();
   void begin(int baudrate);
   void end();
@@ -36,7 +37,6 @@ class SerialAbstract : public StreamInterface {
   virtual int available(void);
   virtual int peek(void);
   virtual int read(void);
-  int availableForWrite(void);
   virtual void flush(void);
   virtual int write(unsigned char ch);
   virtual int write(const void* buf, int len);
