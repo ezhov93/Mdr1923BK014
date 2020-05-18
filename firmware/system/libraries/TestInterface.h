@@ -1,5 +1,5 @@
-#ifndef TEST_TESTINTERFACE_H_
-#define TEST_TESTINTERFACE_H_
+#ifndef TEST_TESTINTERFACE_H
+#define TEST_TESTINTERFACE_H
 
 class TestInterface {
  public:
@@ -8,4 +8,4 @@ class TestInterface {
   virtual void update() = 0;
 };
 
-#endif /* TEST_TESTINTERFACE_H_ */
+#endif /* TEST_TESTINTERFACE_H */

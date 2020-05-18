@@ -1,7 +1,8 @@
-#ifndef SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
-#define SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
+#ifndef SERIALABSTRACT_H
+#define SERIALABSTRACT_H
 
 #include <libraries/StreamInterface.h>
+
 #include "libraries/Global.h"
 #include "libraries/Ring.h"
 
@@ -54,4 +55,4 @@ class SerialAbstract : public StreamInterface {
   StopBits _stopBits;
 };
 
-#endif  // SYSTEM_1923VK014_DRIVERS_SERIALABSTRACT_H
+#endif  // SERIALABSTRACT_H

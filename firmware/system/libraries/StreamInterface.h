@@ -1,5 +1,5 @@
-#ifndef SYSTEM_1923VK014_DRIVERS_STREAMINTERFACE_H_
-#define SYSTEM_1923VK014_DRIVERS_STREAMINTERFACE_H_
+#ifndef STREAMINTERFACE_H
+#define STREAMINTERFACE_H
 
 class StreamInterface {
  public:
@@ -19,4 +19,4 @@ class StreamInterface {
   int write(int n) { return write(static_cast<unsigned char>(n)); }
 };
 
-#endif /* SYSTEM_1923VK014_DRIVERS_STREAMINTERFACE_H_ */
+#endif /* STREAMINTERFACE_H */

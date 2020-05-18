@@ -1,5 +1,5 @@
-#ifndef TEST_TESTPIN_H_
-#define TEST_TESTPIN_H_
+#ifndef TEST_TESTPIN_H
+#define TEST_TESTPIN_H
 
 #include <assert.h>
 #include <stdio.h>
@@ -45,4 +45,4 @@ class TestPin : public TestInterface {
   const Pin& led7;
 };
 
-#endif  // TEST_TESTPIN_H_
+#endif  // TEST_TESTPIN_H

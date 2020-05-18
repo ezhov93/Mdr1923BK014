@@ -1,5 +1,5 @@
-#ifndef SYSTEM_LIBRARIES_RING_H_
-#define SYSTEM_LIBRARIES_RING_H_
+#ifndef RING_H
+#define RING_H
 
 template <typename T = unsigned char, int Size = 64>
 class Ring {
@@ -70,4 +70,4 @@ class Ring {
   volatile int _tail;
 };
 
-#endif /* SYSTEM_LIBRARIES_RING_H_ */
+#endif /* RING_H */

@@ -1,5 +1,5 @@
-#ifndef SYSTEM_1923VK014_DRIVERS_PIN_H_
-#define SYSTEM_1923VK014_DRIVERS_PIN_H_
+#ifndef PIN_H
+#define PIN_H
 
 #include "libraries/Global.h"
 
@@ -213,4 +213,4 @@ extern const Pin PE29;
 extern const Pin PE30;
 extern const Pin PE31;
 
-#endif /* SYSTEM_1923VK014_DRIVERS_PIN_H_ */
+#endif /* PIN_H */
