@@ -1,39 +1,41 @@
 20^done
 (gdb) 
 &"load D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\Debug\\\\firmware.elf \n"
-~"Loading section .isr_vector, size 0x1ac lma 0x0\n"
-21+download,{section=".isr_vector",section-size="428",total-size="179657"}
-21+download,{section=".isr_vector",section-sent="320",section-size="428",total-sent="320",total-size="179657"}
-~"Loading section .text, size 0x2980 lma 0x1b0\n"
-21+download,{section=".text",section-size="10624",total-size="179657"}
-21+download,{section=".text",section-sent="304",section-size="10624",total-sent="732",total-size="179657"}
-21+download,{section=".text",section-sent="912",section-size="10624",total-sent="1340",total-size="179657"}
-21+download,{section=".text",section-sent="1520",section-size="10624",total-sent="1948",total-size="179657"}
-21+download,{section=".text",section-sent="2128",section-size="10624",total-sent="2556",total-size="179657"}
-21+download,{section=".text",section-sent="2736",section-size="10624",total-sent="3164",total-size="179657"}
-21+download,{section=".text",section-sent="3344",section-size="10624",total-sent="3772",total-size="179657"}
-21+download,{section=".text",section-sent="3952",section-size="10624",total-sent="4380",total-size="179657"}
-21+download,{section=".text",section-sent="4560",section-size="10624",total-sent="4988",total-size="179657"}
-21+download,{section=".text",section-sent="5168",section-size="10624",total-sent="5596",total-size="179657"}
-21+download,{section=".text",section-sent="5792",section-size="10624",total-sent="6220",total-size="179657"}
-21+download,{section=".text",section-sent="6400",section-size="10624",total-sent="6828",total-size="179657"}
-21+download,{section=".text",section-sent="7008",section-size="10624",total-sent="7436",total-size="179657"}
-21+download,{section=".text",section-sent="7616",section-size="10624",total-sent="8044",total-size="179657"}
-21+download,{section=".text",section-sent="8208",section-size="10624",total-sent="8636",total-size="179657"}
-21+download,{section=".text",section-sent="8816",section-size="10624",total-sent="9244",total-size="179657"}
-21+download,{section=".text",section-sent="9424",section-size="10624",total-sent="9852",total-size="179657"}
-21+download,{section=".text",section-sent="10048",section-size="10624",total-sent="10476",total-size="179657"}
-21+download,{section=".text",section-sent="10624",section-size="10624",total-sent="11052",total-size="179657"}
-~"Loading section .data, size 0x9c lma 0x2b30\n"
-21+download,{section=".data",section-size="156",total-size="179657"}
-~"Start address 0x1b0, load size 11208\n"
-~"Transfer rate: 838 bytes/sec, 294 bytes/write.\n"
+~"Loading section .isr_vector, size 0x24c lma 0x0\n"
+21+download,{section=".isr_vector",section-size="588",total-size="194454"}
+21+download,{section=".isr_vector",section-sent="320",section-size="588",total-sent="320",total-size="194454"}
+~"Loading section .text, size 0x2d34 lma 0x250\n"
+21+download,{section=".text",section-size="11572",total-size="194454"}
+21+download,{section=".text",section-sent="304",section-size="11572",total-sent="892",total-size="194454"}
+21+download,{section=".text",section-sent="912",section-size="11572",total-sent="1500",total-size="194454"}
+21+download,{section=".text",section-sent="1520",section-size="11572",total-sent="2108",total-size="194454"}
+21+download,{section=".text",section-sent="2128",section-size="11572",total-sent="2716",total-size="194454"}
+21+download,{section=".text",section-sent="2752",section-size="11572",total-sent="3340",total-size="194454"}
+21+download,{section=".text",section-sent="3360",section-size="11572",total-sent="3948",total-size="194454"}
+21+download,{section=".text",section-sent="3968",section-size="11572",total-sent="4556",total-size="194454"}
+21+download,{section=".text",section-sent="4576",section-size="11572",total-sent="5164",total-size="194454"}
+21+download,{section=".text",section-sent="5184",section-size="11572",total-sent="5772",total-size="194454"}
+21+download,{section=".text",section-sent="5792",section-size="11572",total-sent="6380",total-size="194454"}
+21+download,{section=".text",section-sent="6416",section-size="11572",total-sent="7004",total-size="194454"}
+21+download,{section=".text",section-sent="7040",section-size="11572",total-sent="7628",total-size="194454"}
+21+download,{section=".text",section-sent="7648",section-size="11572",total-sent="8236",total-size="194454"}
+21+download,{section=".text",section-sent="8256",section-size="11572",total-sent="8844",total-size="194454"}
+21+download,{section=".text",section-sent="8864",section-size="11572",total-sent="9452",total-size="194454"}
+21+download,{section=".text",section-sent="9472",section-size="11572",total-sent="10060",total-size="194454"}
+21+download,{section=".text",section-sent="10080",section-size="11572",total-sent="10668",total-size="194454"}
+21+download,{section=".text",section-sent="10688",section-size="11572",total-sent="11276",total-size="194454"}
+21+download,{section=".text",section-sent="11328",section-size="11572",total-sent="11916",total-size="194454"}
+~"Loading section .data, size 0xb4 lma 0x2f84\n"
+21+download,{section=".data",section-size="180",total-size="194454"}
+21+download,{section=".data",section-sent="180",section-size="180",total-sent="12340",total-size="194454"}
+~"Start address 0x250, load size 12340\n"
+~"Transfer rate: 840 bytes/sec, 300 bytes/write.\n"
 21^done
 (gdb) 
 &"\n"
 ^done
 (gdb) 
-22^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x000001b0",func="_exit",args=[{name="code",value="288"}],file="../system/newlib/_exit.c",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\system\\newlib\\_exit.c",line="64",arch="arm"},state="stopped"}]
+22^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x00000250",func="_exit",args=[{name="code",value="288"}],file="../system/newlib/_exit.c",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\system\\newlib\\_exit.c",line="15",arch="arm"},state="stopped"}]
 (gdb) 
 23^done,value="auto"
 (gdb) 
@@ -51,436 +53,48 @@
 ~"The target endianness is set automatically (currently little endian)\n"
 29^done
 (gdb) 
-30^done,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x0000163c",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",thread-groups=["i1"],times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:24"}
+&"No line 15 in file \"D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp\".\n"
+30^done,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="<PENDING>",pending="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:15",times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:15"}
 (gdb) 
-31^done
+31^done,bkpt={number="2",type="breakpoint",disp="keep",enabled="y",addr="0x00001992",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="8",thread-groups=["i1"],times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:8"}
 (gdb) 
-32^done,groups=[{id="i1",type="process",pid="42000"}]
+32^done
 (gdb) 
-33^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x000001b0",func="_exit",args=[{name="code",value="288"}],file="../system/newlib/_exit.c",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\system\\newlib\\_exit.c",line="64",arch="arm"},state="stopped"}]
+33^done,groups=[{id="i1",type="process",pid="42000"}]
 (gdb) 
-34^done
+34^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x00000250",func="_exit",args=[{name="code",value="288"}],file="../system/newlib/_exit.c",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\system\\newlib\\_exit.c",line="15",arch="arm"},state="stopped"}]
 (gdb) 
-35^running
+35^done
+(gdb) 
+36^running
 *running,thread-id="all"
 (gdb) 
-@"H"
 @"e"
-@"l"
-@"l"
-@"o"
-@"\n"
-@"0"
-@"\n"
-=breakpoint-modified,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x0000163c",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",thread-groups=["i1"],times="1",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:24"}
-~"\n"
-~"Breakpoint 1, main () at ../src/main.cpp:24\n"
-~"24\t    cnt++;\n"
-*stopped,reason="breakpoint-hit",disp="keep",bkptno="1",frame={addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"},thread-id="1",stopped-threads="all"
-(gdb) 
-36^done,new-thread-id="1",frame={level="0",addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"}
-(gdb) 
-37^done,depth="1"
-(gdb) 
-38^done
-(gdb) 
-39^done,groups=[{id="i1",type="process",pid="42000"}]
-(gdb) 
-40^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"},state="stopped"}]
-(gdb) 
-41^running
-*running,thread-id="all"
-(gdb) 
-@"H"
+@"x"
+@"i"
+@"t"
 @"e"
-@"l"
-@"l"
+@"d"
+@" "
+@"w"
+@"i"
+@"t"
+@"h"
+@" "
+@"c"
 @"o"
-@"\n"
-@"1"
-@"\n"
-=breakpoint-modified,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x0000163c",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",thread-groups=["i1"],times="2",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:24"}
-~"\n"
-~"Breakpoint 1, main () at ../src/main.cpp:24\n"
-~"24\t    cnt++;\n"
-*stopped,reason="breakpoint-hit",disp="keep",bkptno="1",frame={addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"},thread-id="1",stopped-threads="all"
-(gdb) 
-42^done,new-thread-id="1",frame={level="0",addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"}
-(gdb) 
-43^done,depth="1"
-(gdb) 
-44^done
-(gdb) 
-45^done,groups=[{id="i1",type="process",pid="42000"}]
-(gdb) 
-46^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"},state="stopped"}]
-(gdb) 
-47^running
-*running,thread-id="all"
-(gdb) 
-@"H"
+@"d"
 @"e"
-@"l"
-@"l"
-@"o"
-@"\n"
-@"2"
-@"\n"
-=breakpoint-modified,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x0000163c",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",thread-groups=["i1"],times="3",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:24"}
-~"\n"
-~"Breakpoint 1, main () at ../src/main.cpp:24\n"
-~"24\t    cnt++;\n"
-*stopped,reason="breakpoint-hit",disp="keep",bkptno="1",frame={addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"},thread-id="1",stopped-threads="all"
-(gdb) 
-48^done,new-thread-id="1",frame={level="0",addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"}
-(gdb) 
-49^done,depth="1"
-(gdb) 
-50^done
-(gdb) 
-51^done,groups=[{id="i1",type="process",pid="42000"}]
-(gdb) 
-52^done,threads=[{id="1",target-id="Thread <main>",frame={level="0",addr="0x0000163c",func="main",args=[],file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="24",arch="arm"},state="stopped"}]
-(gdb) 
-53^done,value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
-(gdb) 
-54^error,msg="No symbol \"str\" in current context."
-(gdb) 
-55^error,msg="Invalid character '\\' in expression."
-(gdb) 
-56^error,msg="Attempt to use a type name as an expression"
-(gdb) 
-57^done,value="\"assertion \\\"%s\\\" failed: file \\\"%s\\\", line %d%s%s\\n\""
-(gdb) 
-58^done,name="var1",numchild="47",value="[47]",type="char [47]",has_more="0"
-(gdb) 
-59^done,name="var2",numchild="1",value="",type="char (*)[47]",has_more="0"
-(gdb) 
-60^done,name="var3",numchild="0",value="97 'a'",type="char",has_more="0"
-(gdb) 
-61^done,name="var4",numchild="0",value="115 's'",type="char",has_more="0"
-(gdb) 
-62^done,name="var5",numchild="0",value="115 's'",type="char",has_more="0"
-(gdb) 
-63^done,format="octal",value=""
-(gdb) 
-64^done,format="natural",value=""
-(gdb) 
-65^done,format="decimal",value=""
-(gdb) 
-66^done,format="natural",value=""
-(gdb) 
-67^done,format="binary",value=""
-(gdb) 
-68^done,format="natural",value=""
-(gdb) 
-69^done,format="hexadecimal",value=""
-(gdb) 
-70^done,format="natural",value=""
-(gdb) 
-71^error,msg="No symbol \"uint8_t\" in current context."
-(gdb) 
-72^error,msg="No symbol \"USE_FULL_ASSERT\" in current context."
-(gdb) 
-73^error,msg="No symbol \"assert_failed\" in current context."
-(gdb) 
-74^error,msg="No symbol \"__assert_func\" in current context."
-(gdb) 
-75^error,msg="No symbol \"line\" in current context."
-(gdb) 
-76^done,value="{void (void)} 0x15c <Reset_Handler>"
-(gdb) 
-77^done,name="var6",numchild="0",value="{void (void)} 0x15c <Reset_Handler>",type="void (void)",has_more="0"
-(gdb) 
-78^done,format="octal",value="020"
-(gdb) 
-79^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
-(gdb) 
-80^done,format="decimal",value="16"
-(gdb) 
-81^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
-(gdb) 
-82^done,format="binary",value="10000"
-(gdb) 
-83^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
-(gdb) 
-84^done,format="hexadecimal",value="0x10"
-(gdb) 
-85^done,format="natural",value="{void (void)} 0x15c <Reset_Handler>"
-(gdb) 
-86^done,value="{void (void)} 0x174 <NMI_Handler>"
-(gdb) 
-87^done,name="var7",numchild="0",value="{void (void)} 0x174 <NMI_Handler>",type="void (void)",has_more="0"
-(gdb) 
-88^done,format="octal",value="0"
-(gdb) 
-89^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
-(gdb) 
-90^done,format="decimal",value="0"
-(gdb) 
-91^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
-(gdb) 
-92^done,format="binary",value="0"
-(gdb) 
-93^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
-(gdb) 
-94^done,format="hexadecimal",value="0x0"
-(gdb) 
-95^done,format="natural",value="{void (void)} 0x174 <NMI_Handler>"
-(gdb) 
-96^error,msg="No symbol \"failedexpr\" in current context."
-(gdb) 
-97^error,msg="No symbol \"_REENT\" in current context."
-(gdb) 
-98^error,msg="No symbol \"pid\" in current context."
-(gdb) 
-99^error,msg="A syntax error in expression, near `and'."
-(gdb) 
-100^done,value="1"
-(gdb) 
-101^done,name="var8",numchild="0",value="1",type="int",has_more="0"
-(gdb) 
-102^done,format="octal",value="01"
-(gdb) 
-103^done,format="natural",value="1"
-(gdb) 
-104^done,format="decimal",value="1"
-(gdb) 
-105^done,format="natural",value="1"
-(gdb) 
-106^done,format="binary",value="1"
-(gdb) 
-107^done,format="natural",value="1"
-(gdb) 
-108^done,format="hexadecimal",value="0x1"
-(gdb) 
-109^done,format="natural",value="1"
-(gdb) 
-110^done,value="0x40099000"
-(gdb) 
-111^done,name="var9",numchild="16",value="0x40099000",type="MDR_UART_TypeDef *",has_more="0"
-(gdb) 
-112^done,numchild="16",children=[child={name="var9.DR",exp="DR",numchild="0",type="volatile uint32_t"},child={name="var9.RSR_ECR",exp="RSR_ECR",numchild="0",type="volatile uint32_t"},child={name="var9.Reserved1",exp="Reserved1",numchild="4",type="volatile uint32_t [4]"},child={name="var9.FR",exp="FR",numchild="0",type="volatile uint32_t"},child={name="var9.Reserved2",exp="Reserved2",numchild="0",type="volatile uint32_t"},child={name="var9.ILPR",exp="ILPR",numchild="0",type="volatile uint32_t"},child={name="var9.IBRD",exp="IBRD",numchild="0",type="volatile uint32_t"},child={name="var9.FBRD",exp="FBRD",numchild="0",type="volatile uint32_t"},child={name="var9.LCR_H",exp="LCR_H",numchild="0",type="volatile uint32_t"},child={name="var9.CR",exp="CR",numchild="0",type="volatile uint32_t"},child={name="var9.IFLS",exp="IFLS",numchild="0",type="volatile uint32_t"},child={name="var9.IMSC",exp="IMSC",numchild="0",type="volatile uint32_t"},child={name="var9.RIS",exp="RIS",numchild="0",type="volatile uint32_t"},child={name="var9.MIS",exp="MIS",numchild="0",type="volatile uint32_t"},child={name="var9.ICR",exp="ICR",numchild="0",type="volatile uint32_t"},child={name="var9.DMACR",exp="DMACR",numchild="0",type="volatile uint32_t"}],has_more="0"
-(gdb) 
-113^done,path_expr="(MDR_UART0)->DR"
-(gdb) 
-114^done,path_expr="(MDR_UART0)->RSR_ECR"
-(gdb) 
-115^done,path_expr="(MDR_UART0)->Reserved1"
-(gdb) 
-116^done,path_expr="(MDR_UART0)->FR"
-(gdb) 
-117^done,path_expr="(MDR_UART0)->Reserved2"
-(gdb) 
-118^done,path_expr="(MDR_UART0)->ILPR"
-(gdb) 
-119^done,path_expr="(MDR_UART0)->IBRD"
-(gdb) 
-120^done,path_expr="(MDR_UART0)->FBRD"
-(gdb) 
-121^done,path_expr="(MDR_UART0)->LCR_H"
-(gdb) 
-122^done,path_expr="(MDR_UART0)->CR"
-(gdb) 
-123^done,path_expr="(MDR_UART0)->IFLS"
-(gdb) 
-124^done,path_expr="(MDR_UART0)->IMSC"
-(gdb) 
-125^done,path_expr="(MDR_UART0)->RIS"
-(gdb) 
-126^done,path_expr="(MDR_UART0)->MIS"
-(gdb) 
-127^done,path_expr="(MDR_UART0)->ICR"
-(gdb) 
-128^done,path_expr="(MDR_UART0)->DMACR"
-(gdb) 
-129^done,value="51"
-(gdb) 
-130^done,name="var10",numchild="0",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>",type="void (const char *, unsigned int)",has_more="0"
-(gdb) 
-131^done,format="octal",value="020"
-(gdb) 
-132^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
-(gdb) 
-133^done,format="decimal",value="16"
-(gdb) 
-134^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
-(gdb) 
-135^done,format="binary",value="10000"
-(gdb) 
-136^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
-(gdb) 
-137^done,format="hexadecimal",value="0x10"
-(gdb) 
-138^done,format="natural",value="{void (const char *, unsigned int)} 0x14f0 <gdb_console_write>"
-(gdb) 
-139^error,msg="-data-evaluate-expression: Usage: -data-evaluate-expression expression"
-(gdb) 
-140^error,msg="No symbol \"STDOUT\" in current context."
-(gdb) 
-141^done,bkpt={number="2",type="breakpoint",disp="keep",enabled="y",addr="0x0000162e",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="23",thread-groups=["i1"],times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:23"}
-(gdb) 
-142^done
-(gdb) 
-143^error,msg="No symbol \"begin\" in current context."
-(gdb) 
-144^done,value="{void (void)} 0x158 <Default_Handler>"
-(gdb) 
-145^error,msg="No symbol \"TIM0_IRQHandler\" in current context."
-(gdb) 
-146^error,msg="No symbol \"CCSDS_TX_IRQHandler\" in current context."
-(gdb) 
-147^error,msg="No symbol \"GPIO_IRQHandler\" in current context."
-(gdb) 
-148^error,msg="No symbol \"BKP_IRQHandler\" in current context."
-(gdb) 
-149^error,msg="No symbol \"CLOCK\" in current context."
-(gdb) 
-150^error,msg="No symbol \"RST_CLOCK_MAX_CLK_Select_Msk\" in current context."
-(gdb) 
-151^error,msg="No symbol \"MDR_RST_CLOCK_MAX_CLK_Select_Msk\" in current context."
-(gdb) 
-152^error,msg="No symbol \"MDR_CLOCK\" in current context."
-(gdb) 
-153^error,msg="No symbol \"EBC_ERROR_IRQn\" in current context."
-(gdb) 
-154^error,msg="Attempt to use a type name as an expression"
-(gdb) 
-155^error,msg="No symbol \"MAXCLK_PLL0\" in current context."
-(gdb) 
-156^done,value="0"
-(gdb) 
-157^done,name="var11",numchild="0",value="0",type="volatile uint32_t",has_more="0"
-(gdb) 
-158^done,format="octal",value="0"
-(gdb) 
-159^done,format="natural",value="0"
-(gdb) 
-160^done,format="decimal",value="0"
-(gdb) 
-161^done,format="natural",value="0"
-(gdb) 
-162^done,format="binary",value="0"
-(gdb) 
-163^done,format="natural",value="0"
-(gdb) 
-164^done,format="hexadecimal",value="0x0"
-(gdb) 
-165^done,format="natural",value="0"
-(gdb) 
-166^done,value="0"
-(gdb) 
-167^done,name="var12",numchild="0",value="0",type="volatile uint32_t",has_more="0"
-(gdb) 
-168^done,format="octal",value="0"
-(gdb) 
-169^done,format="natural",value="0"
-(gdb) 
-170^done,format="decimal",value="0"
-(gdb) 
-171^done,format="natural",value="0"
-(gdb) 
-172^done,format="binary",value="0"
-(gdb) 
-173^done,format="natural",value="0"
-(gdb) 
-174^done,format="hexadecimal",value="0x0"
-(gdb) 
-175^done,format="natural",value="0"
-(gdb) 
-176^error,msg="No symbol \"MDR_RST_CLK_DIV_Msk\" in current context."
-(gdb) 
-177^error,msg="No symbol \"MDR_KEY_UNLOCK\" in current context."
-(gdb) 
-178^error,msg="No symbol \"MDR_FTCNTR\" in current context."
-(gdb) 
-179^error,msg="No symbol \"FTCNTR\" in current context."
-(gdb) 
-180^error,msg="No symbol \"MDR_BKP_REG60_PORSTn_Dis_Msk\" in current context."
-(gdb) 
-181^error,msg="No symbol \"SYSTEM_CLOCK\" in current context."
-(gdb) 
-182^error,msg="No symbol \"PRIMARY_CH1_SOURCE_END_POINTER\" in current context."
-(gdb) 
-183^done,bkpt={number="3",type="breakpoint",disp="keep",enabled="y",addr="0x00001622",func="main()",file="../src/main.cpp",fullname="D:\\MEGA\\Projects\\global\\Mdr1923BK014\\firmware\\src\\main.cpp",line="22",thread-groups=["i1"],times="0",original-location="D:\\\\MEGA\\\\Projects\\\\global\\\\Mdr1923BK014\\\\firmware\\\\src\\\\main.cpp:22"}
-(gdb) 
-184^done
-(gdb) 
-185^error,msg="A syntax error in expression, near `'."
-(gdb) 
-186^error,msg="No symbol \"CLK_CNTR_MAXCLK_SEL\" in current context."
-(gdb) 
-187^error,msg="No symbol \"MAXCLK_PLL2\" in current context."
-(gdb) 
-188^error,msg="No symbol \"_GenFreqsHz\" in current context."
-(gdb) 
-189^done,value="8000000"
-(gdb) 
-190^done,name="var13",numchild="0",value="8000000",type="unsigned long",has_more="0"
-(gdb) 
-191^done,format="octal",value="036411000"
-(gdb) 
-192^done,format="natural",value="8000000"
-(gdb) 
-193^done,format="decimal",value="8000000"
-(gdb) 
-194^done,format="natural",value="8000000"
-(gdb) 
-195^done,format="binary",value="11110100001001000000000"
-(gdb) 
-196^done,format="natural",value="8000000"
-(gdb) 
-197^done,format="hexadecimal",value="0x7a1200"
-(gdb) 
-198^done,format="natural",value="8000000"
-(gdb) 
-199^error,msg="Invalid number \"1923VK014\"."
-(gdb) 
-200^error,msg="No symbol \"__SYSTEM_CLOCK\" in current context."
-(gdb) 
-201^error,msg="No symbol \"CLK_SEL_COUNT\" in current context."
-(gdb) 
-202^done,value="2"
-(gdb) 
-203^done,name="var14",numchild="0",value="2",type="int",has_more="0"
-(gdb) 
-204^done,format="octal",value="02"
-(gdb) 
-205^done,format="natural",value="2"
-(gdb) 
-206^done,format="decimal",value="2"
-(gdb) 
-207^done,format="natural",value="2"
-(gdb) 
-208^done,format="binary",value="10"
-(gdb) 
-209^done,format="natural",value="2"
-(gdb) 
-210^done,format="hexadecimal",value="0x2"
-(gdb) 
-211^done,format="natural",value="2"
-(gdb) 
-212^error,msg="No symbol \"__HSE1\" in current context."
-(gdb) 
-213^error,msg="No symbol \"MDR_RST_PLL_SELECT\" in current context."
-(gdb) 
-214^error,msg="No symbol \"regCLK\" in current context."
-(gdb) 
-215^done,value="0"
-(gdb) 
-216^error,msg="No symbol \"FERQ_FAULT_HZ\" in current context."
-(gdb) 
-217^error,msg="No symbol \"MDR_MaxClock\" in current context."
-(gdb) 
-218^done,value="0x40000000"
-(gdb) 
-219^error,msg="No symbol \"FTCTRL_EVENT_COUNT\" in current context."
-(gdb) 
-~"Kill the program being debugged? (y or n) [answered Y; input not from terminal]\n"
+@"7"
+@"6"
+@"9"
+~"The target is not responding to interrupt requests.\nStop debugging it? "
+~"(y or n) [answered Y; input not from terminal]\n"
 =thread-group-exited,id="i1"
-~"[Inferior 1 (Remote target) killed]\n"
-220^done
+&"Disconnected from target.\n"
+37^error,msg="Thread ID 1 not known."
 (gdb) 
-221^done,groups=[{id="i1",type="process"}]
+&"The program is not being run.\n"
+38^error,msg="The program is not being run."
 (gdb) 
-222^exit
+39^exit
