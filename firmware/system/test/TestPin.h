@@ -4,8 +4,10 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "drivers/Pin.h"
-#include "libraries/TestInterface.h"
+#include <iostream>
+
+#include "system/drivers/Pin.h"
+#include "system/libraries/TestInterface.h"
 
 class TestPin : public TestInterface {
  public:
@@ -33,6 +35,7 @@ class TestPin : public TestInterface {
     led7.write(false);
     assert(led7.read() == false);
     delay();
+    assert(true == false);
   }
 
  private:
