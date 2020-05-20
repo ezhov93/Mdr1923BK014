@@ -2,7 +2,6 @@
 #define GLOBAL_H
 
 // Macros
-#define forever for (;;)
 #define UNUSED(arg) (void)(arg)
 
 // Typedefs
