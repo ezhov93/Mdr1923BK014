@@ -28,6 +28,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     bytearray.h \
+    commandlineparser.h \
     hex.h \
     loader.h \
-    mcu.h
+    mcu.h \
+    task.h
