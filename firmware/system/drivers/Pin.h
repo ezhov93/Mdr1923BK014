@@ -1,7 +1,7 @@
 #ifndef PIN_H
 #define PIN_H
 
-#include "libraries/Global.h"
+#include "system/libraries/Global.h"
 
 class Pin {
  public:

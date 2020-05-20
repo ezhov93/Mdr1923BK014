@@ -15,8 +15,8 @@
  */
 //#include <rtthread.h>
 //#include <rthw.h>
-#include "1923VK014.h"
-#include "gdb_stub.h"
+#include "system/1923VK014.h"
+#include "system/gdb/gdb_stub.h"
 
 // #ifdef RT_USING_SERIAL
 // #include <rtdevice.h>
@@ -33,7 +33,11 @@ void gdb_uart_putc(char c);
 int gdb_uart_getc();
 
 /*if you want to use something instead of the serial,change it */
-struct gdb_io gdb_io_ops = {gdb_uart_getc, gdb_uart_putc};
+struct gdb_io gdb_io_ops = {
+    gdb_uart_getc,
+    gdb_uart_putc,
+    0,
+};
 
 /**
  * @ingroup gdb_stub

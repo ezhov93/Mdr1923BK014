@@ -1,6 +1,6 @@
 #include "config_gdb.h"
 
-#include "1923VK014.h"
+#include "system/1923VK014.h"
 
 void ClockConfig(void) {
   CLK_CNTR->HSE1_CLK = (1 << 27) | (1 << 29);  // Enable HSE1 osc

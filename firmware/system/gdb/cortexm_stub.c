@@ -1,4 +1,4 @@
-#include "gdb\gdb_stub.h"
+#include "system/gdb/gdb_stub.h"
 
 static Gdb_SavedRegisters *regs;
 unsigned long single_step_basepri = 0;

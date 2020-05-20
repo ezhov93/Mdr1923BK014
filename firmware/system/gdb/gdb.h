@@ -1,7 +1,7 @@
 /*
  * gdb.h
  *
- *  Created on: 16 апр. 2020 г.
+ *  Created on: 16 ???. 2020 ?.
  *      Author: ezhov
  */
 
@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "1923VK014.h"
+#include "system/1923VK014.h"
 
 class Gdb {
  public:

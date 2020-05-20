@@ -1,5 +1,5 @@
-#include "cmsis_device.h"
-#include "gdb\gdb_stub.h"
+#include "system/cmsis_device.h"
+#include "system/gdb/gdb_stub.h"
 
 static Gdb_SavedRegisters *regs;
 #define PS_N 0x80000000
